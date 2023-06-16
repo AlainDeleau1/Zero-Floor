@@ -55,7 +55,7 @@ public class NormalEnemy : Enemy
             var player = collision.collider.gameObject.GetComponent<Player>();
             if (player != null && damageReceived == false)
             {
-                ui.ShowDamage();
+                ui.ShowDamage(2);
                 player.TakeDamage(damage);
                 damageReceived = true;
 

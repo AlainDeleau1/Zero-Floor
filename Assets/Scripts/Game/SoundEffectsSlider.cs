@@ -6,7 +6,7 @@ public class SoundEffectsSlider : MonoBehaviour
     public Slider slider;
 
     private float volume;
-    public AudioSource[] audioSources;
+    public AudioSource[] sfxAudioSources;
 
     private void Start()
     {
@@ -15,8 +15,6 @@ public class SoundEffectsSlider : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 1f;
         slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(); });
-
-        //audioSources = GameObject.FindObjectOfType<SoundManager>().GetAudioSources();
 
         SetVolume(volume);
     }
@@ -29,13 +27,12 @@ public class SoundEffectsSlider : MonoBehaviour
 
     private void SetVolume(float volume)
     {
-        AudioListener.volume = volume;
-
-        foreach (AudioSource source in audioSources)
+        foreach (AudioSource source in sfxAudioSources)
         {
             source.volume = volume;
         }
     }
 }
+
 
 

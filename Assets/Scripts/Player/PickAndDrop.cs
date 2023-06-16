@@ -9,7 +9,6 @@ public class PickAndDrop: MonoBehaviour
     public GameObject currentWeapon;
     public GameObject weapon;
     public PlayerUI ui;
-    public GameObject boxingGloves;
 
     bool canGrab;
 
@@ -69,15 +68,16 @@ public class PickAndDrop: MonoBehaviour
     private void Pickup()
     {   
         currentWeapon = weapon;
-        currentWeapon.transform.position = gunPos.position;
         currentWeapon.transform.parent = gunPos;
+        currentWeapon.transform.position = gunPos.position;
         currentWeapon.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         ui.textoContBalas.gameObject.SetActive(true);
         ui.BulletGIF.gameObject.SetActive(true);
-        currentWeapon.GetComponent<Rigidbody>().isKinematic = true;
+        currentWeapon.GetComponent<Rigidbody>().useGravity = false;
+        currentWeapon.GetComponent<Animator>().enabled = true;
+        currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().pickedUp = true;
-        boxingGloves.gameObject.SetActive(false);
     }
 
     private void Drop()
@@ -85,11 +85,12 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
-        currentWeapon.GetComponent<Rigidbody>().isKinematic = false;
+        currentWeapon.GetComponent<Rigidbody>().useGravity = true;
+        currentWeapon.GetComponent<Animator>().enabled = false;
+        currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = false;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = false;
         currentWeapon.gameObject.GetComponent<GunSystem>().pickedUp = false;
         currentWeapon = null;
         fixCamera.gameObject.SetActive(false);
-        boxingGloves.gameObject.SetActive(true);
     }
 }

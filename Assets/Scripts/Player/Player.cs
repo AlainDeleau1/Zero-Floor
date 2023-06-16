@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
         healthHUD.text = currentHealth.ToString();
         if (currentHealth <= 0 && died == false)
         {
-            
             sm.PlayerDamagedSound();
             currentHealth = 0;
             Die();

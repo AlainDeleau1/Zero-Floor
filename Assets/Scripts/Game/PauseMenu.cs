@@ -41,7 +41,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
         Debug.Log("pause");
-        gs.enabled = false;
+        //gs.enabled = false;
         AudioListener.pause = true;
         cs.enabled = false;
     }

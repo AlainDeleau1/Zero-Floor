@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     private SoundManager sm;
     private GameController gc;
 
+    private bool died = false;
+
     protected IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(attackVelocity);
@@ -27,12 +29,13 @@ public class Enemy : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && died == false)
         {
             sm = FindObjectOfType<SoundManager>();
             sm.EnemyDeadSound();
             gc = FindObjectOfType<GameController>();
             Die();
+            died = true;
         }
     }           
 
@@ -40,6 +43,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
         gc.kills++;
+        print("asd");
     }
 
     public async void CheckSphere()

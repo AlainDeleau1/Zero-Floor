@@ -50,7 +50,7 @@ public class FastEnemy : Enemy
             if (player != null && damageReceived == false)
             {
                 Debug.Log(damage);
-                ui.ShowDamage();
+                ui.ShowDamage(2);
                 player.TakeDamage(damage);
                 damageReceived = true;
                 StartCoroutine(AttackDelay());

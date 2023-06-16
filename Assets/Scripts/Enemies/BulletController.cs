@@ -15,7 +15,7 @@ public class BulletController : MonoBehaviour
             {
                 player.TakeDamage(damage);
                 ui = FindObjectOfType<PlayerUI>();
-                ui.ShowDamage();    
+                ui.ShowDamage(2);    
             }
         }
         if (collision.collider.gameObject.CompareTag("Wall"))

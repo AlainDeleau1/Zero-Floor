@@ -19,12 +19,6 @@ public class Shotgun : GunSystem
 
     public bool shotgunPickedUpLoaded = false;
 
-    [SerializeField] private Transform rayCastOrigin;
-    [SerializeField] private Transform rayCastDestination;
-
-    Ray ray;
-    RaycastHit hitInfo;
-
     public override void MyInput()
     {
         base.MyInput();
@@ -51,9 +45,10 @@ public class Shotgun : GunSystem
         print("Dispare shotgun");
         readyToShoot = false;
 
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 10; i++)
         {
-            if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range, whatIsEnemy))
+            Vector3 directionCone = GetConeDirection(12f);
+            if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, whatIsEnemy))
             {
                 if (rayHit.collider.gameObject.CompareTag("Enemy"))
                 {
@@ -68,16 +63,12 @@ public class Shotgun : GunSystem
                     }
                 }
             }
-        }
-
-        ray.origin = rayCastOrigin.position;
-        ray.direction = rayCastDestination.position - rayCastOrigin.position;
-        if (Physics.Raycast(ray, out hitInfo))
-        {
-            Debug.DrawLine(ray.origin, hitInfo.point, Color.red, 1.0f);
-            bulletHolePrefab.transform.position = hitInfo.point;
-            bulletHolePrefab.transform.position = hitInfo.normal;
-            bulletHolePrefab.Emit(1);
+            if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, walls))
+            {
+                ParticleSystem spawnedParticles = Instantiate(bulletHolePrefab, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+                spawnedParticles.Emit(1);
+                Destroy(spawnedParticles.gameObject, 2f);
+            }           
         }
 
         bulletsLeft--;
@@ -155,5 +146,12 @@ public class Shotgun : GunSystem
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    private Vector3 GetConeDirection(float coneAngle)
+    {
+        float randomAngle = Random.Range(-coneAngle, coneAngle);
+        Quaternion coneRotation = Quaternion.Euler(0, randomAngle, 0);
+        return coneRotation * camera.transform.forward;
     }
 }

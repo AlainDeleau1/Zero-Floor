@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 public class GameController : MonoBehaviour
 {
     public int kills;
+    public GameObject enemySpawners;
 
     [SerializeField] private TextMeshProUGUI wonText;
 
@@ -21,12 +22,14 @@ public class GameController : MonoBehaviour
         wonText.gameObject.SetActive(false);
     }
 
-    private void Update()
+    private async void Update()
     {
-        if (kills == 23)
+        if (kills >= 6)
         {
-            wonText.gameObject.SetActive(true);
-            Invoke("RestartLevel", 3f);
+            enemySpawners.gameObject.SetActive(true);
+            await Task.Delay(20);
+            enemySpawners.gameObject.SetActive(false);
+            kills = 0;
         }
     }
 }

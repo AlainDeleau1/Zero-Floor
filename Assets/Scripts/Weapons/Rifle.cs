@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Rifle : GunSystem
@@ -46,7 +47,6 @@ public class Rifle : GunSystem
 
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range, whatIsEnemy))
         {
-
             if (rayHit.collider.gameObject.CompareTag("Enemy"))
             {
                 var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();
@@ -54,15 +54,19 @@ public class Rifle : GunSystem
                 {
                     sm.EnemyDamagedSound();
                     enemy.TakeDamage(damage);
-                    //BloodParticles();
+                    BloodParticles();
                 }
             }
-            //if (rayHit.collider.gameObject.CompareTag("Walls"))
-            //{
-            //    
-            //}
+
         }
-    
+
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range, walls))
+        {
+            ParticleSystem spawnedParticles = Instantiate(bulletHolePrefab, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+            spawnedParticles.Emit(1);
+            Destroy(spawnedParticles.gameObject, 2f);
+        }
+
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
 
@@ -79,6 +83,7 @@ public class Rifle : GunSystem
 
         StartCoroutine(cameraShake.Shake(duration, magnitude));
     }
+
 
     private void Start()
     {
@@ -126,7 +131,7 @@ public class Rifle : GunSystem
     private void Reload()
     {
         reloading = true;
-        sm.ReloadSound();
+        sm.RifleReloadSound();
         Invoke("ReloadFinished", reloadTime);
     }
 

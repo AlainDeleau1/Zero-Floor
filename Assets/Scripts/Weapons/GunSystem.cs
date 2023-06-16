@@ -31,6 +31,7 @@ public abstract class GunSystem : MonoBehaviour
             {
                 shooting = Input.GetKeyDown(KeyCode.Mouse0);
             }
-        }            
+        }
     }
 }
+

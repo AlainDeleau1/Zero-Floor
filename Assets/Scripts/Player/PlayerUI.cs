@@ -15,9 +15,9 @@ public class PlayerUI : MonoBehaviour
 
     public Player player;
 
-    public void ShowDamage()
+    public void ShowDamage(int mulitplier)
     {
-        alpha = .2f;
+        alpha = .1f * mulitplier;
     }
 
     private void Start()
@@ -27,11 +27,10 @@ public class PlayerUI : MonoBehaviour
 
     private void Update()
     {
-
         bloodImage.color = new Color(1, 1, 1, alpha);
         if (alpha > 0)
         {
-            alpha -= .02f * Time.deltaTime;
+            alpha -= .05f * Time.deltaTime;
 
             if (alpha < 0)
             {

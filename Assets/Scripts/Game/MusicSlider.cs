@@ -6,7 +6,7 @@ public class MusicSlider : MonoBehaviour
     public Slider slider;
 
     private float volume;
-    public AudioSource[] audioSources;
+    public AudioSource[] musicAudioSources;
 
     private void Start()
     {
@@ -27,9 +27,7 @@ public class MusicSlider : MonoBehaviour
 
     private void SetVolume(float volume)
     {
-        AudioListener.volume = volume;
-
-        foreach (AudioSource source in audioSources)
+        foreach (AudioSource source in musicAudioSources)
         {
             source.volume = volume;
         }

@@ -16,8 +16,6 @@ public class MediumEnemy : Enemy
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private float rotationSpeed = 5f;
 
-    public SensorLevel sl;
-
 
     private void Start()
     {
@@ -27,7 +25,7 @@ public class MediumEnemy : Enemy
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < inRange && sl.departmentOne == true)
+        if (Vector3.Distance(transform.position, target.transform.position) < inRange)
         {
             isChasing = true;
             isPatrolling = false;
