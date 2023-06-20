@@ -24,7 +24,7 @@ public class FPSCounter : MonoBehaviour
         if (timeLeft <= 0)
         {
             float fps = fpsAccumulator / framesAccumulated;
-            fpsText.text = "FPS: " + fps.ToString("F2");
+            fpsText.text = "FPS: " + fps;
 
             timeLeft = updateInterval;
             fpsAccumulator = 0;

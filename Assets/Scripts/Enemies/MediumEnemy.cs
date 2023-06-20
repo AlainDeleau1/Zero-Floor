@@ -16,7 +16,6 @@ public class MediumEnemy : Enemy
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private float rotationSpeed = 5f;
 
-
     private void Start()
     {
         currentHealth = startingHealth;
@@ -31,11 +30,9 @@ public class MediumEnemy : Enemy
             isPatrolling = false;
             if (isChasing)
             {
-                //print("Chase");
                 ChasePlayer();
                 if (Vector3.Distance(transform.position, target.transform.position) < 2f)
                 {
-                    //print("Attack");
                     Attack();
                 }
             }
@@ -44,7 +41,7 @@ public class MediumEnemy : Enemy
         {
             isPatrolling = true;
             isChasing = false;
-            //print("Patrol");
+
             Patrol();
         }
     }
@@ -90,6 +87,8 @@ public class MediumEnemy : Enemy
     {
         ani.SetTrigger("BaseballAttack");
     }
+
+
 }
 
 

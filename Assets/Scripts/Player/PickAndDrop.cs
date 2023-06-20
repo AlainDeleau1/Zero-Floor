@@ -10,6 +10,8 @@ public class PickAndDrop: MonoBehaviour
     public GameObject weapon;
     public PlayerUI ui;
 
+    public float forceMagnitude;
+
     bool canGrab;
 
     private void Update()
@@ -81,11 +83,15 @@ public class PickAndDrop: MonoBehaviour
     }
 
     private void Drop()
-    {       
+    {
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
-        currentWeapon.GetComponent<Rigidbody>().useGravity = true;
+
+        Rigidbody weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
+        weaponRigidbody.useGravity = true;
+        weaponRigidbody.AddForce(currentWeapon.transform.forward * forceMagnitude, ForceMode.Impulse);
+
         currentWeapon.GetComponent<Animator>().enabled = false;
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = false;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = false;
@@ -93,4 +99,5 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon = null;
         fixCamera.gameObject.SetActive(false);
     }
+
 }

@@ -1,29 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
 
 public class BaseballBat : MonoBehaviour
 {
     int baseballBatDmg = 25;
     bool damageReceived = false;
     public PlayerUI ui;
+    public Rigidbody rb;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log(collision.collider.gameObject.name);
             var player = collision.collider.gameObject.GetComponentInParent<Player>();
-            if (player != null && damageReceived == false)
+            if (player != null)
             {
+                rb.AddForce(-transform.forward * 9999f, ForceMode.Impulse);
                 player.TakeDamage(baseballBatDmg);
                 damageReceived = true;
                 ui.ShowDamage(2);
                 StartCoroutine(AttackDelay());
-
             }
-        }       
+
+        }
     }
 
     private IEnumerator AttackDelay()
@@ -32,3 +32,4 @@ public class BaseballBat : MonoBehaviour
         damageReceived = false;
     }
 }
+
