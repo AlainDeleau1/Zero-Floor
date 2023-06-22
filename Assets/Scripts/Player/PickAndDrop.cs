@@ -35,6 +35,7 @@ public class PickAndDrop: MonoBehaviour
             }
         }
 
+
         if (currentWeapon != null)
         {
             if (Input.GetKeyDown(KeyCode.G))
