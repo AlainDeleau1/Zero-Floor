@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BathDoorOpenScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Animator ani;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
