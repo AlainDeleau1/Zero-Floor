@@ -3271,6 +3271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &51097094
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4391,6 +4392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &100668768
 Animator:
   serializedVersion: 4
@@ -8164,6 +8166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &180312372
 Animator:
   serializedVersion: 4
@@ -19030,6 +19033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &384521530
 Animator:
   serializedVersion: 4
@@ -30815,7 +30819,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668295300}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.019, y: 1, z: 0.22000122}
+  m_LocalPosition: {x: 0.019, y: 0.25, z: 0.22000122}
   m_LocalScale: {x: -0.76400083, y: 4.5907836, z: 3.2447798}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -35087,6 +35091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &752047937
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -38675,6 +38680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &865770505
 Animator:
   serializedVersion: 4
@@ -42380,6 +42386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &921042774
 Animator:
   serializedVersion: 4
@@ -44565,6 +44572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &983384929
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -50437,6 +50445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &1108367824
 Animator:
   serializedVersion: 4
@@ -57180,6 +57189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &1240006172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60580,7 +60590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310935348}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.02, y: 1, z: 0.22}
+  m_LocalPosition: {x: 0.02, y: 0.25, z: 0.22}
   m_LocalScale: {x: -0.76400083, y: 4.5907836, z: 3.2447798}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -66460,6 +66470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &1461393615
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -73527,6 +73538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &1621975073
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -75591,6 +75603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!23 &1696533733
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -78602,6 +78615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af914bce7c48f12419e573c82a078ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ani: {fileID: 0}
 --- !u!43 &1784983337
 Mesh:
   m_ObjectHideFlags: 0
@@ -96387,6 +96401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 1544544507}
+  rb: {fileID: 0}
 --- !u!95 &2074084630
 Animator:
   serializedVersion: 4
@@ -136216,13 +136231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e073aff1450904797b1b10ca233429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pillPrefab: {fileID: 0}
+  healingValue: -50
   p: {fileID: 803666208}
-  playerCam: {fileID: 8814446476040496291}
-  range: 10
-  currentWeapon: {fileID: 0}
-  weapon: {fileID: 0}
-  ui: {fileID: 1544544507}
-  canGrab: 0
 --- !u!136 &4315114929931246768
 CapsuleCollider:
   m_ObjectHideFlags: 0

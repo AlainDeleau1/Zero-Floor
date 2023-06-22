@@ -4,49 +4,19 @@ using UnityEngine;
 
 public class Pill : MonoBehaviour
 {
+    public GameObject pillPrefab;
+    public int healingValue = -50;
+    bool healed = false;
     public Player p;
-    public Camera playerCam;
-    public float range;
-    public GameObject currentWeapon;
-    public GameObject weapon;
-    public PlayerUI ui;
-    public bool canGrab;
 
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        CheckWeapons();
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if (collision.collider.gameObject.CompareTag("Player") && healed == false && p.currentHealth <= 50)
         {
-            Pickup();
+            var player = collision.collider.gameObject.GetComponentInParent<Player>();
+            player.TakeDamage(healingValue);
+            healed = true;
+            Destroy(pillPrefab);
         }
-    }
-
-    private void CheckWeapons()
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range))
-        {
-            if (hit.transform.tag == "Healing")
-            {
-                ui.interactText.enabled = true;
-                canGrab = true;
-                weapon = hit.transform.gameObject;
-            }
-        }
-        else
-        {
-            canGrab = false;
-            ui.interactText.enabled = false;
-        }
-
-    }
-    private void Pickup()
-    {
-        currentWeapon = weapon;
-        p.currentHealth = 100;
-        Destroy(currentWeapon, 0f);
-
     }
 }
