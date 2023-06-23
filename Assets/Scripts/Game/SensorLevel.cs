@@ -1,19 +1,36 @@
-
 using UnityEngine;
 using TMPro;
 using System.Threading.Tasks;
 
 public class SensorLevel : MonoBehaviour
 {
-    public GameObject levelOne;
-    public TextMeshProUGUI info;
+    public GameObject levelOne, doorSensors;
+    public TextMeshProUGUI info, bathDoorText;
+    public int dropKeyChance;
+    public bool boolean = true;
 
-    private async void OnTriggerStay(Collider other)
+    private async void OnTriggerExit(Collider other)
     {
         levelOne.gameObject.SetActive(true);
         info.gameObject.SetActive(true);
-        await Task.Delay(4000);
-        info.gameObject.SetActive(true);
+        if (boolean)
+        {
+            doorSensors.gameObject.SetActive(false);
+        }
+        await Task.Delay(3000);
+        info.gameObject.SetActive(false);
     }
 
+    public async void PoolKey()
+    {
+        int pool = Random.Range(0, 100);
+        if (pool <= dropKeyChance)
+        {
+            bathDoorText.gameObject.SetActive(true);
+            doorSensors.gameObject.SetActive(true);
+            boolean = false;
+            await Task.Delay(3000);
+            bathDoorText.gameObject.SetActive(false);
+        }
+    }
 }

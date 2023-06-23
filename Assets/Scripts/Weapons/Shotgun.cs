@@ -52,18 +52,16 @@ public class Shotgun : GunSystem
             {
                 if (rayHit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();
-                    
+                    var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();                   
                     if (enemy != null)
                     {
-                        enemy.CheckSphere();
                         sm.EnemyDamagedSound();
                         enemy.TakeDamage(damage);
                         Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
                     }
                 }
             }
-            if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, walls))
+            else if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, walls))
             {
                 ParticleSystem spawnedParticles = Instantiate(bulletHolePrefab, rayHit.point, Quaternion.LookRotation(rayHit.normal));
                 spawnedParticles.Emit(1);

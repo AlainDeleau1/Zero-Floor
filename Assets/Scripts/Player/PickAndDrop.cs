@@ -10,6 +10,8 @@ public class PickAndDrop: MonoBehaviour
     public GameObject weapon;
     public PlayerUI ui;
 
+    public Rigidbody weaponRigidbody;
+
     public float forceMagnitude;
 
     bool canGrab;
@@ -75,8 +77,11 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
         ui.textoContBalas.gameObject.SetActive(true);
         ui.BulletGIF.gameObject.SetActive(true);
+        weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
         currentWeapon.GetComponent<Rigidbody>().useGravity = false;
         currentWeapon.GetComponent<Animator>().enabled = true;
+        currentWeapon.GetComponent<Rigidbody>().freezeRotation = true;
+        currentWeapon.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().pickedUp = true;
@@ -87,8 +92,9 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
+        currentWeapon.GetComponent<Rigidbody>().freezeRotation = false;
 
-        Rigidbody weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
+        weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
         weaponRigidbody.useGravity = true;
         weaponRigidbody.AddForce(currentWeapon.transform.forward * forceMagnitude, ForceMode.Impulse);
 
