@@ -5,9 +5,9 @@ public class Player : MonoBehaviour
 {
     public int currentHealth;
 
-    [SerializeField] private TextMeshProUGUI healthHUD;
+    [SerializeField] public TextMeshProUGUI healthHUD;
 
-    private int startingHealth = 10000;
+    private int startingHealth = 100;
     public bool died = false;
     private PlayerMovement playerMovement;
     private PlayerCam playerCam;

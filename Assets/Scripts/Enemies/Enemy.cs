@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Threading.Tasks;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,14 +8,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackVelocity;
     [SerializeField] protected float inRange;
     [SerializeField] protected NavMeshAgent agent;
+    [SerializeField] protected SensorLevel sl;
+    [SerializeField] protected PlayerUI ui;
+    [SerializeField] protected SoundManager sm;
+    [SerializeField] protected GameController gc;
     
     protected bool damageReceived = false;
     protected Quaternion angulo;
     protected int currentHealth;
-    protected PlayerUI ui;
-
-    private SoundManager sm;
-    private GameController gc;
 
     private bool died = false;
 
@@ -42,29 +41,11 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+        gc.killsCounter++;
         gc.kills++;
-        print("asd");
-    }
-
-    public async void CheckSphere()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 999f);
-        foreach (Collider collider in colliders)
+        if (gc.killsCounter >= 40)
         {
-            if (collider != null && collider.CompareTag("Enemy"))
-            {
-                var enemy = collider.gameObject.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    enemy.inRange = 300f;
-                    await Task.Delay(5000);
-                    if (enemy != null)
-                    {
-                        enemy.inRange = 15f;
-                    }
-                }
-            }
+            sl.PoolKey();
         }
     }
-
 }

@@ -7,16 +7,14 @@ public class BaseballBat : MonoBehaviour
     int baseballBatDmg = 25;
     bool damageReceived = false;
     public PlayerUI ui;
-    public Rigidbody rb;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
             var player = collision.collider.gameObject.GetComponentInParent<Player>();
-            if (player != null)
+            if (player != null && damageReceived == false)
             {
-                rb.AddForce(-transform.forward * 9999f, ForceMode.Impulse);
                 player.TakeDamage(baseballBatDmg);
                 damageReceived = true;
                 ui.ShowDamage(2);
@@ -28,7 +26,7 @@ public class BaseballBat : MonoBehaviour
 
     private IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.7f);
         damageReceived = false;
     }
 }

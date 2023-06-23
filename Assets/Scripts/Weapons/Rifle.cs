@@ -57,7 +57,6 @@ public class Rifle : GunSystem
                     BloodParticles();
                 }
             }
-
         }
 
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range, walls))

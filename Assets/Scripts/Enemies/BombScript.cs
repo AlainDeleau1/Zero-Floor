@@ -14,12 +14,8 @@ public class BombScript : Enemy
 
     public int radioHP;
     public int currentRadioHP;
-
     public GameObject enemies;
-    public PlayerUI ui;
-    public GameController gc;
     public GameObject radioBomb;
-    public SoundManager sm;
     public PauseMenu pm;
     public AudioSource audioSource;
     public AudioClip slapSlap;
@@ -73,19 +69,21 @@ public class BombScript : Enemy
 
     public override void TakeDamage(int damage)
     {
-        currentRadioHP -= damage;
-        if (currentRadioHP <= 0)
+        if (sl.boolean == false)
         {
-            enemies.SetActive(false);
-            cs.StartCoroutine(cs.Shake(duration, magnitude));
-            Destroy(gameObject);
-            sm.ExplosionDefeat();
-            explosionPlayed = true;
-            Instantiate(explosionEffect, radioBomb.transform.position, radioBomb.transform.rotation);
-            audioSource.Stop();
-            countdownText.gameObject.SetActive(false);
-            ui.victoryMessage.gameObject.SetActive(true);
-            gc.Invoke("RestartLevel", 1.5f);
-        }
+            currentRadioHP -= damage;
+            if (currentRadioHP <= 0)
+            {
+                enemies.SetActive(false);
+                cs.StartCoroutine(cs.Shake(duration, magnitude));
+                Destroy(gameObject);
+                sm.ExplosionDefeat();
+                explosionPlayed = true;
+                Instantiate(explosionEffect, radioBomb.transform.position, radioBomb.transform.rotation);
+                audioSource.Stop();
+                countdownText.gameObject.SetActive(false);
+                ui.victoryMessage.gameObject.SetActive(true);
+            }
+        }  
     }
 }

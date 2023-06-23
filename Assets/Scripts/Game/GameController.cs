@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using System.Threading.Tasks;
 
-
 public class GameController : MonoBehaviour
 {
     public int kills;
+    public int killsCounter;
     public GameObject enemySpawners;
+    public Enemy enemy;
 
     [SerializeField] private TextMeshProUGUI wonText;
 
@@ -32,4 +33,8 @@ public class GameController : MonoBehaviour
             kills = 0;
         }
     }
+
+    
+
+    
 }
