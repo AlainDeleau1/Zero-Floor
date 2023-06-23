@@ -70317,7 +70317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kills: 0
-  killsCounter: 39
+  killsCounter: 0
   enemySpawners: {fileID: 642506568}
   enemy: {fileID: 0}
   wonText: {fileID: 15960908}
