@@ -5,46 +5,21 @@ using UnityEngine;
 public class Pill : MonoBehaviour
 {
     public Player p;
-    public Camera playerCam;
-    public float range;
-    public GameObject currentWeapon;
-    public GameObject weapon;
-    public PlayerUI ui;
-    public bool canGrab;
+    public GameObject pill;
 
-    private void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        CheckWeapons();
-        if (canGrab)
+        print("exit");
+        if (p.currentHealth < 100)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Pickup();
-            }
-        }   
-    }
-    private void CheckWeapons()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out hit, range))
-        {
-            if (hit.transform.tag == "Healing")
-            {
-                ui.interactText.enabled = true;
-                canGrab = true;
-                weapon = hit.transform.gameObject;
-            }
-        }
-        else
-        {
-            canGrab = false;
-            ui.interactText.enabled = false;
+            TakePill();
         }
     }
-    private void Pickup()
+    
+    private void TakePill()
     {
-        currentWeapon = weapon;
         p.TakeDamage(p.currentHealth - 100);
-        Destroy(currentWeapon, 0f);
+        Destroy(pill, 0f);
     }
 }
