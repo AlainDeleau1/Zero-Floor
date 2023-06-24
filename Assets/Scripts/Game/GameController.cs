@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject enemySpawners;
     public Enemy enemy;
 
-    [SerializeField] private TextMeshProUGUI wonText;
+    [SerializeField] private TextMeshProUGUI wonText, killsText;
 
     public async void RestartLevel()
     {
@@ -25,13 +25,15 @@ public class GameController : MonoBehaviour
 
     private async void Update()
     {
-        if (kills >= 6)
+        if (kills >= 9)
         {
             enemySpawners.gameObject.SetActive(true);
             await Task.Delay(20);
             enemySpawners.gameObject.SetActive(false);
             kills = 0;
         }
+
+        killsText.text = killsCounter.ToString();
     }
 
     

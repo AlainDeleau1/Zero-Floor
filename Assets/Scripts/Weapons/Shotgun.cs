@@ -45,19 +45,21 @@ public class Shotgun : GunSystem
         print("Dispare shotgun");
         readyToShoot = false;
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             Vector3 directionCone = GetConeDirection(12f);
             if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, whatIsEnemy))
             {
                 if (rayHit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();                   
+                    var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();
                     if (enemy != null)
                     {
                         sm.EnemyDamagedSound();
                         enemy.TakeDamage(damage);
-                        Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
+                        GameObject newBlood = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
+                        Destroy(newBlood, 1f);
+                        
                     }
                 }
             }
@@ -66,16 +68,11 @@ public class Shotgun : GunSystem
                 ParticleSystem spawnedParticles = Instantiate(bulletHolePrefab, rayHit.point, Quaternion.LookRotation(rayHit.normal));
                 spawnedParticles.Emit(1);
                 Destroy(spawnedParticles.gameObject, 2f);
-            }           
+            }
         }
 
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
-
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-
-        Vector3 direction = camera.transform.forward + new Vector3(x, y, 0);
 
         bulletsShot--;
         Invoke("ResetShot", timeBetweenShooting);
@@ -90,6 +87,22 @@ public class Shotgun : GunSystem
 
         StartCoroutine(cameraShake.Shake(duration, magnitude));
     }
+
+    private Vector3 GetConeDirection(float coneAngle)
+    {
+        Vector3 direction = camera.transform.forward;
+
+        float randomAngleX = Random.Range(-coneAngle, coneAngle);
+        float randomAngleY = Random.Range(-coneAngle, coneAngle);
+
+        Quaternion coneRotation = Quaternion.Euler(randomAngleY, randomAngleX, 0);
+        direction = coneRotation * direction;
+
+        return direction;
+    }
+
+
+
 
     private void Start()
     {
@@ -144,12 +157,5 @@ public class Shotgun : GunSystem
     {
         bulletsLeft = magazineSize;
         reloading = false;
-    }
-
-    private Vector3 GetConeDirection(float coneAngle)
-    {
-        float randomAngle = Random.Range(-coneAngle, coneAngle);
-        Quaternion coneRotation = Quaternion.Euler(0, randomAngle, 0);
-        return coneRotation * camera.transform.forward;
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected GameObject target;
+    [SerializeField] protected GameObject target, pill;
     [SerializeField] protected float attackVelocity;
     [SerializeField] protected float inRange;
     [SerializeField] protected NavMeshAgent agent;
@@ -43,6 +43,13 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         gc.killsCounter++;
         gc.kills++;
+        int healChance = Random.Range(0, 100);
+        if (healChance >= 7)
+        {
+            GameObject newPill = Instantiate(pill, agent.transform.position, Quaternion.identity);
+            Destroy(newPill, 5f);
+        }
+
         if (gc.killsCounter >= 30)
         {
             sl.PoolKey();

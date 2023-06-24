@@ -9,8 +9,9 @@ public class EnemySpawners : MonoBehaviour
     public Transform[] enemySpawners;
     public Transform player;
     public int rangeEnemySpawner;
+    public int instantiated;
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (spawned == false)
         {
@@ -24,12 +25,14 @@ public class EnemySpawners : MonoBehaviour
         for (int i = 0; i < enemySpawners.Length; i++)
         {
             float distance = Vector3.Distance(enemySpawners[i].position, player.position);
-            if (distance > rangeEnemySpawner)
+            if (distance > rangeEnemySpawner && instantiated <= 8)
             {
                 Instantiate(enemyPrefab, enemySpawners[i].position, enemySpawners[i].rotation);
+                instantiated++;
                 print("enemy");
             }
         }
+        instantiated = 0;
     }
 
     private void OnEnable()

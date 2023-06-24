@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading.Tasks;
 
 public class MediumEnemy : Enemy
 {
@@ -83,12 +84,11 @@ public class MediumEnemy : Enemy
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void Attack()
+    private async void Attack()
     {
+        await Task.Delay(125);
         ani.SetTrigger("BaseballAttack");
     }
-
-
 }
 
 

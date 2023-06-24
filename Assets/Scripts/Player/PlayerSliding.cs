@@ -7,7 +7,7 @@ public class PlayerSliding : MonoBehaviour
     [SerializeField] private Transform playerObj;
     private Rigidbody rb;
     private PlayerMovement pm;
-
+    [SerializeField] private float dashForce;
     [SerializeField] private float maxSlideTime;
     [SerializeField] private float slideForce;
     [SerializeField] private float slideTimer;
@@ -93,7 +93,7 @@ public class PlayerSliding : MonoBehaviour
         playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
         rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
 
-        pm.playerSpeed = pm.playerSpeed * 2;
+        pm.playerSpeed = pm.playerSpeed * dashForce;
 
         slideTimer = maxSlideTime;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class PickAndDrop: MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PickAndDrop: MonoBehaviour
     public GameObject currentWeapon;
     public GameObject weapon;
     public PlayerUI ui;
+    public GunSystem gs;
 
     public Rigidbody weaponRigidbody;
 
@@ -16,13 +18,17 @@ public class PickAndDrop: MonoBehaviour
 
     bool canGrab;
 
-    private void Update()
+    private void Start()
+    {
+        gs = FindObjectOfType<GunSystem>();
+    }
+    private async void Update()
     {
         CheckWeapons();
 
         if (canGrab)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && gs.pickedUp == false)
             {
                 if (currentWeapon != null)
                 {
@@ -34,6 +40,9 @@ public class PickAndDrop: MonoBehaviour
                 Pickup();
                 fixCamera.gameObject.SetActive(true);
                 currentWeapon.GetComponent<GunSystem>().readyToShoot = true;
+                currentWeapon.GetComponent<GunSystem>().pickedUp = true;
+                await Task.Delay(1000);
+                currentWeapon.GetComponent<GunSystem>().pickedUp = false;
             }
         }
 
@@ -84,7 +93,6 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true;
-        currentWeapon.gameObject.GetComponent<GunSystem>().pickedUp = true;
     }
 
     private void Drop()
@@ -101,7 +109,6 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.GetComponent<Animator>().enabled = false;
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = false;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = false;
-        currentWeapon.gameObject.GetComponent<GunSystem>().pickedUp = false;
         currentWeapon = null;
         fixCamera.gameObject.SetActive(false);
     }

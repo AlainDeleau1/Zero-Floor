@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseballBat : MonoBehaviour
@@ -8,26 +6,19 @@ public class BaseballBat : MonoBehaviour
     bool damageReceived = false;
     public PlayerUI ui;
 
-    private void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.CompareTag("Player"))
+        print("pega");
+        if (other.CompareTag("Player"))
         {
-            var player = collision.collider.gameObject.GetComponentInParent<Player>();
+            var player = other.GetComponentInParent<Player>();
             if (player != null && damageReceived == false)
             {
                 player.TakeDamage(baseballBatDmg);
                 damageReceived = true;
                 ui.ShowDamage(2);
-                StartCoroutine(AttackDelay());
             }
-
         }
-    }
-
-    private IEnumerator AttackDelay()
-    {
-        yield return new WaitForSeconds(1.7f);
-        damageReceived = false;
     }
 }
 
