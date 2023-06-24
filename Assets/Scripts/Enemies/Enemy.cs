@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
         gc.killsCounter++;
         gc.kills++;
-        if (gc.killsCounter >= 40)
+        if (gc.killsCounter >= 30)
         {
             sl.PoolKey();
         }

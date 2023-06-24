@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemySpawners : MonoBehaviour
 {
-    public Transform[] enemySpawners;
     public GameObject enemyPrefab;
     public bool spawned = false;
+    public Transform[] enemySpawners;
+    public Transform player;
+    public int rangeEnemySpawner;
 
     private void FixedUpdate()
     {
@@ -14,24 +16,24 @@ public class EnemySpawners : MonoBehaviour
         {
             SpawnEnemies();
             spawned = true;
-        }
-        
+        }  
     }
 
     private void SpawnEnemies()
     {
         for (int i = 0; i < enemySpawners.Length; i++)
         {
-            if (enemySpawners.Length >= enemySpawners.Length)
+            float distance = Vector3.Distance(enemySpawners[i].position, player.position);
+            if (distance > rangeEnemySpawner)
             {
                 Instantiate(enemyPrefab, enemySpawners[i].position, enemySpawners[i].rotation);
+                print("enemy");
             }
         }
     }
 
     private void OnEnable()
     {
-        print("Enemy Spawners Script Enabled");
         spawned = false;
     }
 }
