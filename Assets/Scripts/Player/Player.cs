@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 public class Player : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
 
     private int startingHealth = 100;
     public bool died = false;
+    private bool damaged = false;
     private PlayerMovement playerMovement;
     private PlayerCam playerCam;
     private PlayerUI playerUI;
@@ -20,9 +22,15 @@ public class Player : MonoBehaviour
     
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        sm.EnemyAttackSound();
-        healthHUD.text = currentHealth.ToString();
+        if (damaged == false)
+        {
+            currentHealth -= damage;
+            sm.EnemyAttackSound();
+            healthHUD.text = currentHealth.ToString();
+            Invulnerability();
+            damaged = true;
+        }
+
         if (currentHealth <= 0 && died == false)
         {
             sm.PlayerDamagedSound();
@@ -65,6 +73,12 @@ public class Player : MonoBehaviour
         died = true;
 
         gc.RestartLevel();
+    }
+
+    private async void Invulnerability()
+    {
+        await Task.Delay(1000);
+        damaged = false;
     }
 }
 

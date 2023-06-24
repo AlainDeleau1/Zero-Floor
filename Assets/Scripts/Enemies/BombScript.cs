@@ -11,6 +11,7 @@ public class BombScript : Enemy
     public CameraShake cs;
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
+    public GameObject level;
 
     public int radioHP;
     public int currentRadioHP;
@@ -83,6 +84,7 @@ public class BombScript : Enemy
                 audioSource.Stop();
                 countdownText.gameObject.SetActive(false);
                 ui.victoryMessage.gameObject.SetActive(true);
+                level.gameObject.SetActive(false);
             }
         }  
     }
