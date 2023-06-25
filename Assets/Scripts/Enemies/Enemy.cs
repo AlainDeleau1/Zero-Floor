@@ -44,11 +44,21 @@ public class Enemy : MonoBehaviour
         gc.killsCounter++;
         gc.kills++;
         int healChance = Random.Range(0, 100);
-        if (healChance >= 7)
+        //int bluePillChance = Random.Range(0, 100);
+        if (healChance <= 7)
         {
-            GameObject newPill = Instantiate(pill, agent.transform.position, Quaternion.identity);
-            Destroy(newPill, 5f);
+            Vector3 pillSpawnPosition = agent.transform.position + new Vector3(0f, 1f, 0f);
+            GameObject newPill = Instantiate(pill, pillSpawnPosition, Quaternion.identity);
+            Destroy(newPill, 10f);
         }
+
+        //else if (bluePillChance <= 7 && instantiated == false)
+        //{
+        //    Vector3 pillSpawnPosition = agent.transform.position + new Vector3(0f, 1f, 0f);
+        //    GameObject newPill = Instantiate(bluePill, pillSpawnPosition, Quaternion.identity);
+        //    Destroy(newPill, 5f);
+        //    instantiated = true;
+        //}
 
         if (gc.killsCounter >= 30)
         {

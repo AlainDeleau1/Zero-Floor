@@ -4,12 +4,12 @@ using UnityEngine;
 public class Shotgun : GunSystem
 {
     [Header("Gun stats")]
-    [SerializeField] public int magazineSize, bulletsPerTap, damage;
-    [SerializeField] public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots, shotForce;
+    public int damage;
+    public float spread, reloadTime, timeBetweenShots, shotForce;
     
     [Header("Sounds & Visuals")]
     [SerializeField] CameraShake cameraShake;
-    [SerializeField] private float duration, magnitude;
+    
     [SerializeField] private GameObject particlesEffect, bloodParticles, reloadPrefab;
     [SerializeField] private ParticleSystem bulletHolePrefab;
 
@@ -31,8 +31,6 @@ public class Shotgun : GunSystem
         if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && p.died == false)
         {
             Shoot();
-            
-            bulletsShot = bulletsPerTap;
         }
         else if (readyToShoot && shooting && !reloading && bulletsLeft <= 0 && p.died == false)
         {
@@ -45,7 +43,7 @@ public class Shotgun : GunSystem
         print("Dispare shotgun");
         readyToShoot = false;
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < bulletsPerTap; i++)
         {
             Vector3 directionCone = GetConeDirection(12f);
             if (Physics.Raycast(camera.transform.position, directionCone, out rayHit, range, whatIsEnemy))
@@ -58,8 +56,7 @@ public class Shotgun : GunSystem
                         sm.EnemyDamagedSound();
                         enemy.TakeDamage(damage);
                         GameObject newBlood = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
-                        Destroy(newBlood, 1f);
-                        
+                        Destroy(newBlood, 1f);                    
                     }
                 }
             }
@@ -100,9 +97,6 @@ public class Shotgun : GunSystem
 
         return direction;
     }
-
-
-
 
     private void Start()
     {
@@ -148,14 +142,15 @@ public class Shotgun : GunSystem
 
     private void Reload()
     {
+        print("reload");
         reloading = true;
-        sm.ReloadSound();
+        sm.ReloadSound();    
         Invoke("ReloadFinished", reloadTime);
     }
 
     private void ReloadFinished()
-    {
+    {   
         bulletsLeft = magazineSize;
-        reloading = false;
+        reloading = false;     
     }
 }

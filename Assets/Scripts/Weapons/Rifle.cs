@@ -5,12 +5,12 @@ using UnityEngine;
 public class Rifle : GunSystem
 {
     [Header("Gun stats")]
-    [SerializeField] public int magazineSize, bulletsPerTap, damage;
-    [SerializeField] public float timeBetweenShooting, spread, range, reloadTime, timeBetweenShots, shotForce;
+    public int damage;
+    public float spread, reloadTime, timeBetweenShots, shotForce;
 
     [Header("Sounds & Visuals")]
     [SerializeField] private CameraShake cameraShake;
-    [SerializeField] private float duration, magnitude;
+
     [SerializeField] private GameObject particlesEffect, bloodParticles;
     [SerializeField] private ParticleSystem bulletHolePrefab;
     [SerializeField] private SoundManager sm;
@@ -18,8 +18,6 @@ public class Rifle : GunSystem
 
     private Animator anim;
     public bool riflePickedUpLoaded = false;
-
-    public HolesPool hp;
 
     public override void MyInput()
     {
