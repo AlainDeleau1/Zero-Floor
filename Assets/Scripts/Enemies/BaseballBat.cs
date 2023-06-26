@@ -8,7 +8,6 @@ public class BaseballBat : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        print("pega");
         if (other.CompareTag("Player"))
         {
             var player = other.GetComponentInParent<Player>();
