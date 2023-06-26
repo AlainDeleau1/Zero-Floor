@@ -41,7 +41,6 @@ public class ShooterEnemy : Enemy
             isPatrolling = false;
             if (isChasing)
             {
-                //print("Chase");
                 ChasePlayer();
             }
         }
@@ -49,7 +48,6 @@ public class ShooterEnemy : Enemy
         {
             isPatrolling = true;
             isChasing = false;
-            //print("Patrol");
             Patrol();
         }
     }
