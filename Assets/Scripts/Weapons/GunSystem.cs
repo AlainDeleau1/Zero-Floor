@@ -6,6 +6,7 @@ public abstract class GunSystem : MonoBehaviour
     public int bulletsLeft, bulletsPerTap;
     public float timeBetweenShooting;
     public float range;
+    public float reloadTime;
 
     public float duration;
     public float magnitude;
@@ -25,18 +26,31 @@ public abstract class GunSystem : MonoBehaviour
 
     public virtual void MyInput()
     {
-        if (p.died == false)
+        if (p.died)
         {
-            if (allowButtonHold)
-            {
-                shooting = Input.GetKey(KeyCode.Mouse0);
-            }
-
-            else
-            {
-                shooting = Input.GetKeyDown(KeyCode.Mouse0);
-            }
+            return;
         }
+
+        if (allowButtonHold)
+        {
+            shooting = Input.GetKey(KeyCode.Mouse0);
+        }
+        else
+        {
+            shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        }
+    }
+
+
+    protected void ResetShot()
+    {
+        readyToShoot = true;
+    }
+
+    protected void ReloadFinished()
+    {
+        bulletsLeft = magazineSize;
+        reloading = false;
     }
 }
 

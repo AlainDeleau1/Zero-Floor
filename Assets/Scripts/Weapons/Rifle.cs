@@ -6,7 +6,7 @@ public class Rifle : GunSystem
 {
     [Header("Gun stats")]
     public int damage;
-    public float spread, reloadTime, timeBetweenShots, shotForce;
+    public float spread, timeBetweenShots;
 
     [Header("Sounds & Visuals")]
     [SerializeField] private CameraShake cameraShake;
@@ -22,25 +22,36 @@ public class Rifle : GunSystem
     public override void MyInput()
     {
         base.MyInput();
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading && p.died == false)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
             Reload();
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && p.died == false)
+        if (shooting)
         {
             Shoot();
-
             bulletsShot = bulletsPerTap;
         }
-        else if (readyToShoot && shooting && !reloading && bulletsLeft <= 0 && p.died == false)
+
+        if (shooting && bulletsLeft <= 0 && reloading == false)
         {
             sm.OutOfAmmoSound();
+            Invoke("Reload", 1f);
         }
+            
+       //else if (readyToShoot && shooting && !reloading && bulletsLeft <= 0 && p.died == false)
+       //{
+       //
+       //    Invoke("Reload", 1f);
+       //}
     }
 
     public void Shoot()
     {
+        if (!readyToShoot || reloading || bulletsLeft <= 0)              
+            return;
+        
+           
         readyToShoot = false;
 
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out rayHit, range, whatIsEnemy))
@@ -66,21 +77,14 @@ public class Rifle : GunSystem
 
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
-
         bulletsShot--;
         Invoke("ResetShot", timeBetweenShooting);
-
         if (bulletsShot > 0 && bulletsLeft > 0) Invoke("Shoot", timeBetweenShots);
-
         StartCoroutine(ParticleView());
-
         anim.SetTrigger("shootRifleAni");
-
         sm.RifleShotSound();
-
         StartCoroutine(cameraShake.Shake(duration, magnitude));
     }
-
 
     private void Start()
     {
@@ -106,11 +110,6 @@ public class Rifle : GunSystem
         }
     }
 
-    private void ResetShot()
-    {
-        readyToShoot = true;
-    }
-
     IEnumerator ParticleView()
     {
         particlesEffect.SetActive(true);
@@ -127,15 +126,11 @@ public class Rifle : GunSystem
 
     private void Reload()
     {
-        reloading = true;
+        if (p.died || reloading)
+            return;
         sm.RifleReloadSound();
+        reloading = true;
         Invoke("ReloadFinished", reloadTime);
-    }
-
-    private void ReloadFinished()
-    {
-        bulletsLeft = magazineSize;
-        reloading = false;
     }
 }
 

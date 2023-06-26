@@ -5,7 +5,7 @@ public class Shotgun : GunSystem
 {
     [Header("Gun stats")]
     public int damage;
-    public float spread, reloadTime, timeBetweenShots, shotForce;
+    public float spread, timeBetweenShots;
     
     [Header("Sounds & Visuals")]
     [SerializeField] CameraShake cameraShake;
@@ -22,25 +22,28 @@ public class Shotgun : GunSystem
     public override void MyInput()
     {
         base.MyInput();
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading && p.died == false)
+        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
         {
             Reload();
-            StartCoroutine(ReloadPrefab());
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && p.died == false)
-        {
+        if (shooting)
             Shoot();
-        }
-        else if (readyToShoot && shooting && !reloading && bulletsLeft <= 0 && p.died == false)
+
+        if (shooting && bulletsLeft <= 0 && !reloading)
         {
             sm.OutOfAmmoSound();
-        }
+            Invoke("Reload", 1f);
+        }     
     }
 
     public void Shoot()
     {
-        print("Dispare shotgun");
+        if (!readyToShoot || reloading || bulletsLeft <= 0)
+        {
+            return;     
+        }
+
         readyToShoot = false;
 
         for (int i = 0; i < bulletsPerTap; i++)
@@ -70,18 +73,12 @@ public class Shotgun : GunSystem
 
         bulletsLeft--;
         Invoke("ResetShot", timeBetweenShooting);
-
         bulletsShot--;
         Invoke("ResetShot", timeBetweenShooting);
-
         if (bulletsShot > 0 && bulletsLeft > 0) Invoke("Shoot", timeBetweenShots);
-
         StartCoroutine(ParticleView());
-
         anim.SetTrigger("ShootAnim");
-
         sm.ShootSound();
-
         StartCoroutine(cameraShake.Shake(duration, magnitude));
     }
 
@@ -121,11 +118,6 @@ public class Shotgun : GunSystem
         }
     }
 
-    private void ResetShot()
-    {
-        readyToShoot = true;
-    }
-
     IEnumerator ParticleView()
     {
         particlesEffect.SetActive(true);
@@ -142,15 +134,11 @@ public class Shotgun : GunSystem
 
     private void Reload()
     {
-        print("reload");
+        if (p.died || reloading)
+            return;      
+        sm.ReloadSound();
+        StartCoroutine(ReloadPrefab());
         reloading = true;
-        sm.ReloadSound();    
         Invoke("ReloadFinished", reloadTime);
-    }
-
-    private void ReloadFinished()
-    {   
-        bulletsLeft = magazineSize;
-        reloading = false;     
     }
 }

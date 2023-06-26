@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -7,17 +6,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CameraShake cs;
     [SerializeField] private SoundManager sm;
-    private GunSystem gs;
 
-    
     public bool paused = false;
 
     private void Start()
     {
-        gs = FindObjectOfType<GunSystem>();
         pauseMenu.SetActive(false);
-        
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -40,8 +36,6 @@ public class PauseMenu : MonoBehaviour
         paused = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-        Debug.Log("pause");
-        //gs.enabled = false;
         AudioListener.pause = true;
         cs.enabled = false;
     }
@@ -53,11 +47,8 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        Debug.Log("resume");
-        //gs.enabled = true;
         AudioListener.pause = false;
         cs.enabled = true;
-
     }
 
     public void Restart()
@@ -66,8 +57,15 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MenuPrincipal");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
     }
 }
+

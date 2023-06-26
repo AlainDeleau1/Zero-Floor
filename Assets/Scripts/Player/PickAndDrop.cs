@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Threading.Tasks;
 
 public class PickAndDrop: MonoBehaviour
 {
@@ -22,7 +21,7 @@ public class PickAndDrop: MonoBehaviour
     {
         gs = FindObjectOfType<GunSystem>();
     }
-    private async void Update()
+    private void Update()
     {
         CheckWeapons();
 
@@ -40,9 +39,7 @@ public class PickAndDrop: MonoBehaviour
                 Pickup();
                 fixCamera.gameObject.SetActive(true);
                 currentWeapon.GetComponent<GunSystem>().readyToShoot = true;
-                currentWeapon.GetComponent<GunSystem>().pickedUp = true;
-                await Task.Delay(1000);
-                currentWeapon.GetComponent<GunSystem>().pickedUp = false;
+                
             }
         }
 
@@ -93,10 +90,12 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
         currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true;
+        currentWeapon.GetComponent<GunSystem>().pickedUp = true;
     }
 
     private void Drop()
     {
+        currentWeapon.GetComponent<GunSystem>().pickedUp = false;
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
@@ -112,5 +111,4 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon = null;
         fixCamera.gameObject.SetActive(false);
     }
-
 }
