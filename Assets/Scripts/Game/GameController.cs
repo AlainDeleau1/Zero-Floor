@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 public class GameController : MonoBehaviour
 {
-    public int kills;
-    public int killsCounter;
+    public int kills, killsCounter;
     public GameObject enemySpawners;
     public Enemy enemy;
-
     [SerializeField] private TextMeshProUGUI wonText, killsText;
 
     public async void RestartLevel()
@@ -32,11 +30,6 @@ public class GameController : MonoBehaviour
             enemySpawners.gameObject.SetActive(false);
             kills = 0;
         }
-
         killsText.text = killsCounter.ToString();
-    }
-
-    
-
-    
+    }   
 }
