@@ -29,7 +29,6 @@ public class EnemySpawners : MonoBehaviour
             {
                 Instantiate(enemyPrefab, enemySpawners[i].position, enemySpawners[i].rotation);
                 instantiated++;
-                print("enemy");
             }
         }
         instantiated = 0;
