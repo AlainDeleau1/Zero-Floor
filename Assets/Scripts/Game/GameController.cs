@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 public class GameController : MonoBehaviour
 {
     public int kills, killsCounter;
-    public GameObject enemySpawners;
+    public GameObject enemySpawners, enemySpawners2;
     public Enemy enemy;
     [SerializeField] private TextMeshProUGUI wonText, killsText;
 
@@ -26,8 +26,10 @@ public class GameController : MonoBehaviour
         if (kills >= 9)
         {
             enemySpawners.gameObject.SetActive(true);
+            enemySpawners2.gameObject.SetActive(true);
             await Task.Delay(20);
             enemySpawners.gameObject.SetActive(false);
+            enemySpawners2.gameObject.SetActive(false);
             kills = 0;
         }
         killsText.text = killsCounter.ToString();

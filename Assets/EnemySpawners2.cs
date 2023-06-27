@@ -24,18 +24,21 @@ public class EnemySpawners2 : MonoBehaviour
         {
             float distance = Vector3.Distance(enemySpawners[i].position, player.position);
             int chance = Random.Range(0, 100);
-            if (distance > rangeEnemySpawner && instantiated <= 8 && chance < 50)
+            if (distance > rangeEnemySpawner && instantiated <= 9)
             {
-                Instantiate(mediumEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
-                instantiated++;
-                print("medium enemy");
-            }
-            else
-            {
-                Instantiate(shooterEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
-                instantiated++;
-                print("shooter enemy");
-            }
+                if (chance < 50)
+                {
+                    Instantiate(mediumEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
+                    instantiated++;
+                    print("medium enemy");
+                }
+                else
+                {
+                    Instantiate(shooterEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
+                    instantiated++;
+                    print("shooter enemy");
+                }
+            }        
         }
         instantiated = 0;
     }
