@@ -7,7 +7,7 @@ public class SensorLevel : MonoBehaviour
     public GameObject levelOne, doorSensors;
     public TextMeshProUGUI info, bathDoorText;
     public int dropKeyChance;
-    public bool boolean = true;
+    public static bool boolean = true;
 
     private async void OnTriggerExit(Collider other)
     {
@@ -16,21 +16,8 @@ public class SensorLevel : MonoBehaviour
         if (boolean)
         {
             doorSensors.gameObject.SetActive(false);
-        }
-        await Task.Delay(3000);
-        info.gameObject.SetActive(false);
-    }
-
-    public async void PoolKey()
-    {
-        int pool = Random.Range(0, 100);
-        if (pool <= dropKeyChance)
-        {
-            bathDoorText.gameObject.SetActive(true);
-            doorSensors.gameObject.SetActive(true);
-            boolean = false;
             await Task.Delay(3000);
-            bathDoorText.gameObject.SetActive(false);
-        }
+            info.gameObject.SetActive(false);
+        }     
     }
 }

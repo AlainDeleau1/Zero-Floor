@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    int damage = 20;
+    int damage = 10;
     public PlayerUI ui;
     public Player player;
 

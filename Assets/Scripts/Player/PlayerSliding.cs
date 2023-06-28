@@ -5,7 +5,6 @@ public class PlayerSliding : MonoBehaviour
 {
     [SerializeField] private Transform orientation;
     [SerializeField] private Transform playerObj;
-    private Rigidbody rb;
     private PlayerMovement pm;
     [SerializeField] private float dashForce;
     [SerializeField] private float maxSlideTime;
@@ -38,7 +37,6 @@ public class PlayerSliding : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>();
 
         startPlayerSpeed = pm.playerSpeed;
@@ -90,9 +88,6 @@ public class PlayerSliding : MonoBehaviour
     {
         sliding = true;
 
-        playerObj.localScale = new Vector3(playerObj.localScale.x, slideYScale, playerObj.localScale.z);
-        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
-
         pm.playerSpeed = pm.playerSpeed * dashForce;
 
         slideTimer = maxSlideTime;
@@ -108,7 +103,6 @@ public class PlayerSliding : MonoBehaviour
     {
         Vector3 inputDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        rb.AddForce(inputDirection.normalized * slideForce, ForceMode.Impulse);
 
         slideTimer -= Time.deltaTime;
 

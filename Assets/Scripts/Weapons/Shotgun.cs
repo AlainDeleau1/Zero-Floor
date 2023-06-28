@@ -10,7 +10,7 @@ public class Shotgun : GunSystem
     [Header("Sounds & Visuals")]
     [SerializeField] CameraShake cameraShake;
     
-    [SerializeField] private GameObject particlesEffect, bloodParticles, reloadPrefab;
+    [SerializeField] private GameObject particlesEffect, reloadPrefab;
     [SerializeField] private ParticleSystem bulletHolePrefab;
 
     private Animator anim;
@@ -33,13 +33,13 @@ public class Shotgun : GunSystem
         if (shooting && bulletsLeft <= 0 && !reloading)
         {
             sm.OutOfAmmoSound();
-            Invoke("Reload", 1f);
+            Invoke("Reload", .5f);
         }     
     }
 
     public void Shoot()
     {
-        if (!readyToShoot || reloading || bulletsLeft <= 0)
+        if (p.died || !readyToShoot || reloading || bulletsLeft <= 0)
         {
             return;     
         }
@@ -58,8 +58,7 @@ public class Shotgun : GunSystem
                     {
                         sm.EnemyDamagedSound();
                         enemy.TakeDamage(damage);
-                        GameObject newBlood = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
-                        Destroy(newBlood, 1f);                    
+                        BloodParticles();                  
                     }
                 }
             }
@@ -140,5 +139,18 @@ public class Shotgun : GunSystem
         StartCoroutine(ReloadPrefab());
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
+    }
+
+    protected void BloodParticles()
+    {
+        GameObject newBloodParticles = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
+
+        if (rayHit.collider.gameObject.CompareTag("Enemy"))
+        {
+            Transform enemyTransform = rayHit.collider.gameObject.transform;
+            newBloodParticles.transform.parent = enemyTransform;
+        }
+
+        Destroy(newBloodParticles, 2f);
     }
 }
