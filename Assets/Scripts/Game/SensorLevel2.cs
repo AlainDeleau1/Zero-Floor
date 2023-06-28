@@ -20,17 +20,4 @@ public class SensorLevel2 : MonoBehaviour
         await Task.Delay(3000);
         info.gameObject.SetActive(false);
     }
-
-    public async void PoolKey()
-    {
-        int pool = Random.Range(0, 100);
-        if (pool <= dropKeyChance)
-        {
-            bathDoorText.gameObject.SetActive(true);
-            doorSensors.gameObject.SetActive(true);
-            boolean = false;
-            await Task.Delay(3000);
-            bathDoorText.gameObject.SetActive(false);
-        }
-    }
 }

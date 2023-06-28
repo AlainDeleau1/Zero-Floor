@@ -7,16 +7,14 @@ public abstract class GunSystem : MonoBehaviour
     public float timeBetweenShooting;
     public float range;
     public float reloadTime;
-
     public float duration;
     public float magnitude;
-
-    public BluePill bp;
 
     [Header("References")]
     [SerializeField] protected new Camera camera;
     [SerializeField] protected LayerMask whatIsEnemy, walls;
     public Player p;
+    public GameObject bloodParticles;
 
     protected RaycastHit rayHit;
     protected bool allowButtonHold;

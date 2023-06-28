@@ -8,8 +8,6 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float attackVelocity;
     [SerializeField] protected float inRange;
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected SensorLevel sl;
-    [SerializeField] protected PlayerUI ui;
     [SerializeField] protected SoundManager sm;
     [SerializeField] protected GameController gc;
     
@@ -30,9 +28,7 @@ public class Enemy : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0 && died == false)
         {
-            sm = FindObjectOfType<SoundManager>();
             sm.EnemyDeadSound();
-            gc = FindObjectOfType<GameController>();
             Die();
             died = true;
         }
@@ -49,11 +45,6 @@ public class Enemy : MonoBehaviour
             Vector3 pillSpawnPosition = agent.transform.position + new Vector3(0f, 1f, 0f);
             GameObject newPill = Instantiate(pill, pillSpawnPosition, Quaternion.identity);
             Destroy(newPill, 10f);
-        }
-
-        if (gc.killsCounter >= 30)
-        {
-            sl.PoolKey(); 
         }
     }
 }

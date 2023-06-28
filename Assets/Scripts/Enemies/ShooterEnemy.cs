@@ -8,8 +8,6 @@ public class ShooterEnemy : Enemy
     public float patrolSpeed = 2f;
     public float chaseSpeed = 4f;
 
-    public Animator ani;
-
     [SerializeField] private Vector3 patrolPoint;
     private bool isPatrolling;
     private bool isChasing;

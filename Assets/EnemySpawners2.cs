@@ -26,7 +26,7 @@ public class EnemySpawners2 : MonoBehaviour
             int chance = Random.Range(0, 100);
             if (distance > rangeEnemySpawner && instantiated <= 9)
             {
-                if (chance < 50)
+                if (chance > 20)
                 {
                     Instantiate(mediumEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
                     instantiated++;

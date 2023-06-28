@@ -11,7 +11,7 @@ public class Rifle : GunSystem
     [Header("Sounds & Visuals")]
     [SerializeField] private CameraShake cameraShake;
 
-    [SerializeField] private GameObject particlesEffect, bloodParticles;
+    [SerializeField] private GameObject particlesEffect;
     [SerializeField] private ParticleSystem bulletHolePrefab;
     [SerializeField] private SoundManager sm;
     [SerializeField] private PlayerUI ui;
@@ -36,19 +36,13 @@ public class Rifle : GunSystem
         if (shooting && bulletsLeft <= 0 && reloading == false)
         {
             sm.OutOfAmmoSound();
-            Invoke("Reload", 1f);
+            Invoke("Reload", .5f);
         }
-            
-       //else if (readyToShoot && shooting && !reloading && bulletsLeft <= 0 && p.died == false)
-       //{
-       //
-       //    Invoke("Reload", 1f);
-       //}
     }
 
     public void Shoot()
     {
-        if (!readyToShoot || reloading || bulletsLeft <= 0)              
+        if (p.died || !readyToShoot || reloading || bulletsLeft <= 0)              
             return;
         
            
@@ -59,6 +53,7 @@ public class Rifle : GunSystem
             if (rayHit.collider.gameObject.CompareTag("Enemy"))
             {
                 var enemy = rayHit.collider.gameObject.GetComponent<Enemy>();
+
                 if (enemy != null)
                 {
                     sm.EnemyDamagedSound();
@@ -117,13 +112,6 @@ public class Rifle : GunSystem
         particlesEffect.SetActive(false);
     }
 
-    private void BloodParticles()
-    {
-        GameObject newBloodParticles = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
-        Instantiate(newBloodParticles, rayHit.point, Quaternion.identity);
-        Destroy(newBloodParticles, 2f);
-    }
-
     private void Reload()
     {
         if (p.died || reloading)
@@ -131,6 +119,19 @@ public class Rifle : GunSystem
         sm.RifleReloadSound();
         reloading = true;
         Invoke("ReloadFinished", reloadTime);
+    }
+
+    private void BloodParticles()
+    {
+        GameObject newBloodParticles = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
+
+        if (rayHit.collider.gameObject.CompareTag("Enemy"))
+        {
+            Transform enemyTransform = rayHit.collider.gameObject.transform;
+            newBloodParticles.transform.parent = enemyTransform;
+        }
+
+        Destroy(newBloodParticles, 2f);
     }
 }
 
