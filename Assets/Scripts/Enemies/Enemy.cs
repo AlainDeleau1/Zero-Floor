@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
         gc.killsCounter++;
         gc.kills++;
         int healChance = Random.Range(0, 100);
-        if (healChance <= 7)
+        if (healChance <= 10)
         {
             Vector3 pillSpawnPosition = agent.transform.position + new Vector3(0f, 1f, 0f);
             GameObject newPill = Instantiate(pill, pillSpawnPosition, Quaternion.identity);

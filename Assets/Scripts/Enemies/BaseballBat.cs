@@ -1,21 +1,21 @@
 using UnityEngine;
-
+using System.Threading.Tasks;
 public class BaseballBat : MonoBehaviour
 {
-    int baseballBatDmg = 25;
+    int baseballBatDmg = 20;
     bool damageReceived = false;
     public PlayerUI ui;
 
-    public void OnTriggerEnter(Collider other)
+    public async void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             var player = other.GetComponentInParent<Player>();
-            if (player != null && damageReceived == false)
+            if (player != null)
             {
                 player.TakeDamage(baseballBatDmg);
-                damageReceived = true;
                 ui.ShowDamage(2);
+                await Task.Delay(100);
             }
         }
     }

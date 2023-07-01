@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private CameraShake cs;
     [SerializeField] private SoundManager sm;
+    [SerializeField] private GameController gc;
 
     public bool paused = false;
 
@@ -16,6 +17,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            gc.RestartLevel();
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused)
@@ -54,7 +59,7 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gc.RestartLevel();
     }
 
     public void LoadMainMenu()
