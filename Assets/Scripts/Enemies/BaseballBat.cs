@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Threading.Tasks;
+
 public class BaseballBat : MonoBehaviour
 {
     int baseballBatDmg = 20;
@@ -14,7 +15,7 @@ public class BaseballBat : MonoBehaviour
             {
                 player.TakeDamage(baseballBatDmg);
                 ui.ShowDamage(2);
-                await Task.Delay(100);
+                await Task.Delay(0);
             }
         }
     }
