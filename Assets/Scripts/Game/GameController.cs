@@ -14,17 +14,7 @@ public class GameController : MonoBehaviour
 
     public void RestartLevel()
     {
-        if (checkpoint != null && checkpoint.passed == true)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            StartCoroutine(SetPlayerPosition());
-        }
-    }
-
-    private IEnumerator SetPlayerPosition()
-    {
-        yield return new WaitForEndOfFrame();
-        player.transform.position = checkpoint.vectorPoint;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void Start()
@@ -34,19 +24,31 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (kills >= 10 && levelOne.activeInHierarchy)
-        {
-            print("SPAWN LEVEL ONE");
-            enemySpawners.gameObject.SetActive(true);
-            kills = 0;
-        }
-        if (kills >= 10 && levelTwo.activeInHierarchy)
-        {
-            print("SPAWN LEVEL TWO");
-            enemySpawners2.gameObject.SetActive(true);
-            kills = 0;
-        }
+        SpawnEnemiesOne();
+         
+        SpawnEnemiesTwo();
+        
         killsText.text = killsCounter.ToString();
+    }
+
+    private void SpawnEnemiesOne()
+    {
+        if (kills < 10 || !levelOne.activeInHierarchy)
+            return;
+
+        print("SPAWN LEVEL ONE");
+        enemySpawners.gameObject.SetActive(true);
+        kills = 0;
+    }
+    private void SpawnEnemiesTwo()
+    {
+        if (kills < 10 || !levelTwo.activeInHierarchy)
+            return;
+
+        print("SPAWN LEVEL TWO");
+        enemySpawners2.gameObject.SetActive(true);
+        kills = 0;
+        
     }
 }
 
