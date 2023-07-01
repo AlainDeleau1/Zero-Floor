@@ -16,11 +16,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            gc.RestartLevel();
-        }
+    {   
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (paused)

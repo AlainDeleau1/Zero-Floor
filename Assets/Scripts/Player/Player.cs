@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         healthHUD.text = currentHealth.ToString();
     }
 
-    private void Die()
+    private async void Die()
     {
         playerUI.deathText.gameObject.SetActive(true);
         
@@ -72,12 +72,13 @@ public class Player : MonoBehaviour
 
         died = true;
 
+        await Task.Delay(1500);
         gc.RestartLevel();
     }
 
     private async void Invulnerability()
     {
-        await Task.Delay(1000);
+        await Task.Delay(750);
         damaged = false;
     }
 }
