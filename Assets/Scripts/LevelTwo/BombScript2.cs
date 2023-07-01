@@ -48,5 +48,4 @@ public class BombScript2 : MonoBehaviour
             played = true;
         }
     }     
-    
 }
