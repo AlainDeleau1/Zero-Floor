@@ -8,7 +8,7 @@ public class SensorLevel : MonoBehaviour
     public int dropKeyChance;
     public static bool boolean = true;
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         levelOne.gameObject.SetActive(true);
         info.gameObject.SetActive(true);

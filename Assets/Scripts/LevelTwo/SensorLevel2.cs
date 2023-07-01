@@ -7,7 +7,7 @@ public class SensorLevel2 : MonoBehaviour
     public TextMeshProUGUI info, bathDoorText;
     public bool boolean = true;
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         levelTwo.gameObject.SetActive(true);
         info.gameObject.SetActive(true);

@@ -37,9 +37,8 @@ public class BombScript : MonoBehaviour
             doorSensors.gameObject.SetActive(true);
             gameController.killsCounter = 0;
 
-            Destroy(gameObject);
-            Destroy(level);
-
+            radioBomb.gameObject.SetActive(false);
+            level.gameObject.SetActive(false);
             explosionPlayed = true;
         }
 
@@ -48,6 +47,5 @@ public class BombScript : MonoBehaviour
             audioSource.PlayOneShot(slapSlap);
             played = true;
         }
-    }     
-    
+    }       
 }

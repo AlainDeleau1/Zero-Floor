@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 public class BaseballBat : MonoBehaviour
 {
     int baseballBatDmg = 20;
-    bool damageReceived = false;
     public PlayerUI ui;
 
     public async void OnTriggerEnter(Collider other)

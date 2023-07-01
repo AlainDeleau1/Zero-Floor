@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator SetPlayerPosition()
     {
-        yield return new WaitForEndOfFrame(); // Espera hasta que la escena se haya cargado completamente
+        yield return new WaitForEndOfFrame();
         player.transform.position = checkpoint.vectorPoint;
     }
 
