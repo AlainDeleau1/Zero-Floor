@@ -38,14 +38,13 @@ public class PickAndDrop: MonoBehaviour
 
                 Pickup();
                 fixCamera.gameObject.SetActive(true);
-                currentWeapon.GetComponent<GunSystem>().readyToShoot = true;
-                
+                currentWeapon.GetComponent<GunSystem>().readyToShoot = true;              
             }
         }
 
         if (currentWeapon != null)
         {
-            if (Input.GetKeyDown(KeyCode.G))
+            if (Input.GetKeyDown(KeyCode.Mouse1))
             {
                 currentWeapon.GetComponent<GunSystem>().readyToShoot = false;
                 Drop();
@@ -71,8 +70,7 @@ public class PickAndDrop: MonoBehaviour
         {
             canGrab = false;
             ui.interactText.enabled = false;
-        }
-            
+        }       
     }
 
     private void Pickup()
@@ -81,9 +79,11 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.transform.parent = gunPos;
         currentWeapon.transform.position = gunPos.position;
         currentWeapon.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
+
         ui.textoContBalas.gameObject.SetActive(true);
         ui.BulletGIF.gameObject.SetActive(true);
         weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
+
         currentWeapon.GetComponent<Rigidbody>().useGravity = false;
         currentWeapon.GetComponent<Animator>().enabled = true;
         currentWeapon.GetComponent<Rigidbody>().freezeRotation = true;
@@ -99,8 +99,8 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
-        currentWeapon.GetComponent<Rigidbody>().freezeRotation = false;
 
+        currentWeapon.GetComponent<Rigidbody>().freezeRotation = false;
         weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
         weaponRigidbody.useGravity = true;
         weaponRigidbody.AddForce(currentWeapon.transform.forward * forceMagnitude, ForceMode.Impulse);

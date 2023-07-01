@@ -1,37 +1,52 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Threading.Tasks;
+using System.Collections;
 
 public class GameController : MonoBehaviour
 {
     public int kills, killsCounter;
-    public GameObject enemySpawners, enemySpawners2;
-    public Enemy enemy;
+    public GameObject enemySpawners, enemySpawners2, levelOne, levelTwo;
     [SerializeField] private TextMeshProUGUI wonText, killsText;
+    public Checkpoint checkpoint;
+    public Transform checkpointTransform;
+    public GameObject player;
 
-    public async void RestartLevel()
+    public void RestartLevel()
     {
-        await Task.Delay(3000);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (checkpoint != null && checkpoint.passed == true)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(SetPlayerPosition());
+        }
+    }
+
+    private IEnumerator SetPlayerPosition()
+    {
+        yield return new WaitForEndOfFrame(); // Espera hasta que la escena se haya cargado completamente
+        player.transform.position = checkpoint.vectorPoint;
     }
 
     private void Start()
-    {  
+    {
         wonText.gameObject.SetActive(false);
     }
 
-    private async void Update()
+    private void Update()
     {
-        if (kills >= 9)
+        if (kills >= 10 && levelOne.activeInHierarchy)
         {
+            print("SPAWN LEVEL ONE");
             enemySpawners.gameObject.SetActive(true);
+            kills = 0;
+        }
+        if (kills >= 10 && levelTwo.activeInHierarchy)
+        {
+            print("SPAWN LEVEL TWO");
             enemySpawners2.gameObject.SetActive(true);
-            await Task.Delay(20);
-            enemySpawners.gameObject.SetActive(false);
-            enemySpawners2.gameObject.SetActive(false);
             kills = 0;
         }
         killsText.text = killsCounter.ToString();
-    }   
+    }
 }
+
