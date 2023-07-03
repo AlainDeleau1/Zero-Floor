@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource pickedWeaponSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound;
+    public AudioSource pickedWeaponSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound, deathEnemySound, moaningEnemySound;
 
     public void PickedWeaponSound()
     {

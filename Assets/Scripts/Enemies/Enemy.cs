@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     protected Quaternion angulo;
     protected int currentHealth;
 
-    protected bool died = false;
+    public bool died = false;
 
     protected IEnumerator AttackDelay()
     {
