@@ -27,6 +27,7 @@ public class PickAndDrop: MonoBehaviour
 
         if (canGrab)
         {
+
             if (Input.GetKeyDown(KeyCode.E) && gs.pickedUp == false)
             {
                 if (currentWeapon != null)
@@ -74,8 +75,13 @@ public class PickAndDrop: MonoBehaviour
     }
 
     private void Pickup()
-    {   
+    {
+        if (gs.pickedUp == true)
+        {
+            return;
+        }
         currentWeapon = weapon;
+        gs = currentWeapon.GetComponent<GunSystem>();
         currentWeapon.transform.parent = gunPos;
         currentWeapon.transform.position = gunPos.position;
         currentWeapon.transform.localEulerAngles = new Vector3(0f, 0f, 0f);

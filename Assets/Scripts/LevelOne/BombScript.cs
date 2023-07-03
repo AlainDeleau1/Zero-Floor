@@ -19,9 +19,9 @@ public class BombScript : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip slapSlap;
     public ParticleSystem explosionEffect;
-    public GameObject doorSensors, rifle, killsCounter;
+    public GameObject doorSensors, rifle, killsCounter, doorLevel2;
 
-    public bool levelOneIsActive = true;
+    public bool levelOneIsActive = false;
 
     private void Update()
     {
@@ -52,10 +52,17 @@ public class BombScript : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        levelOneIsActive = true;
+        print("level one activado");
+    }
+
     private void OnDisable()
     {
         killsCounter.gameObject.SetActive(false);
         levelOneIsActive = false;
+        doorLevel2.gameObject.SetActive(true);
         print("parlante desactivado");
     }
 }

@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class BombScript2 : MonoBehaviour
 {
@@ -22,6 +24,9 @@ public class BombScript2 : MonoBehaviour
     public GameObject doorSensors;
 
     public bool levelTwoIsActive = true;
+    public bool demoFinished = false;
+
+
 
     private void Update()
     {
@@ -50,10 +55,12 @@ public class BombScript2 : MonoBehaviour
             played = true;
         }
     }
+
     private void OnDisable()
     {
         killsCounter.gameObject.SetActive(false);
         levelTwoIsActive = false;
+        demoFinished = true;
         print("parlante 2 desactivado");
     }
 }

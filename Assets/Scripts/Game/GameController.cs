@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     {
         if (bs.levelOneIsActive == true)       
             SpawnEnemiesOne();  
-        else
+        else if (bs2.levelTwoIsActive == true)
             SpawnEnemiesTwo();       
         killsText.text = killsCounter.ToString();
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 public class SensorLevel : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class SensorLevel : MonoBehaviour
     public int dropKeyChance;
     public bool triggerOnce = false;
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (triggerOnce == true)
             return;
@@ -17,6 +18,8 @@ public class SensorLevel : MonoBehaviour
         killsCounter.gameObject.SetActive(true);
         info.gameObject.SetActive(true);
         doorSensors.gameObject.SetActive(false);
+        await Task.Delay(3000);
+        info.gameObject.SetActive(false);
         triggerOnce = true;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class Shotgun : GunSystem
 {
@@ -101,9 +102,11 @@ public class Shotgun : GunSystem
         particlesEffect.SetActive(false);      
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         shotgunPickedUpLoaded = false;
+        await Task.Delay(1500);
+        pickedUp = false;
     }
 
     private void Update()
