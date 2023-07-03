@@ -52,6 +52,8 @@ public class MediumEnemy : Enemy
 
     private void Patrol()
     {
+        if (died)
+            return;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             SetRandomPatrolPoint();
@@ -63,6 +65,8 @@ public class MediumEnemy : Enemy
 
     private void SetRandomPatrolPoint()
     {
+        if (died)
+            return;
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * patrolRadius;
         NavMeshHit hit;
 
@@ -74,6 +78,8 @@ public class MediumEnemy : Enemy
 
     private void ChasePlayer()
     {
+        if (died)
+            return;
         transform.LookAt(target.transform);
 
         agent.SetDestination(target.transform.position);
@@ -88,7 +94,9 @@ public class MediumEnemy : Enemy
     }
 
     private void Attack()
-    {       
+    {
+        if (died)
+            return;
         ani.SetTrigger("AttackMediumEnemy");
     }
 
@@ -99,7 +107,7 @@ public class MediumEnemy : Enemy
         {
             ani.SetTrigger("DeathAnimation");
             sm.EnemyDeadSound();
-            Die(0f);
+            Die(2f);
             died = true;
         }
     }
