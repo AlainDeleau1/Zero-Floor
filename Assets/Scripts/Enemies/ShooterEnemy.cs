@@ -35,6 +35,9 @@ public class ShooterEnemy : Enemy
 
     private void Update()
     {
+        if (died)
+            agent.GetComponent<NavMeshAgent>().enabled = false;
+
         if (Vector3.Distance(transform.position, target.transform.position) < inRange)
         {
             isChasing = true;
@@ -54,6 +57,8 @@ public class ShooterEnemy : Enemy
 
     private void Patrol()
     {
+        if (died)
+            return;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             SetRandomPatrolPoint();
@@ -65,6 +70,8 @@ public class ShooterEnemy : Enemy
 
     private void SetRandomPatrolPoint()
     {
+        if (died)
+            return;
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * patrolRadius;
         NavMeshHit hit;
 
@@ -96,8 +103,7 @@ public class ShooterEnemy : Enemy
         {
             Debug.DrawRay(muzzleEnemyGun.transform.position, targetDirection * hit.distance, Color.yellow);
             if(hit.collider.gameObject.CompareTag("Player"))
-            {
-                
+            {             
                 var player = hit.collider.gameObject.GetComponent<Player>();
                 if (player != null && damageReceived == false)
                 {

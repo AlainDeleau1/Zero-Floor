@@ -1,5 +1,5 @@
 using UnityEngine;
-public abstract class GunSystem : MonoBehaviour
+public class GunSystem : MonoBehaviour
 {
     public bool pickedUp = false;
     public bool readyToShoot;

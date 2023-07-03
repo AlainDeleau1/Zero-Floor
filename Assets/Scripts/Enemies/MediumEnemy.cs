@@ -25,6 +25,9 @@ public class MediumEnemy : Enemy
 
     private void Update()
     {
+        if (died)
+            agent.GetComponent<NavMeshAgent>().enabled = false;
+
         if (Vector3.Distance(transform.position, target.transform.position) < inRange)
         {
             isChasing = true;
@@ -94,6 +97,7 @@ public class MediumEnemy : Enemy
         base.TakeDamage(damage);
         if (currentHealth <= 0 && died == false)
         {
+            ani.SetTrigger("DeathAnimation");
             sm.EnemyDeadSound();
             Die(0f);
             died = true;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Threading.Tasks;
 
 public class SensorLevel2 : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class SensorLevel2 : MonoBehaviour
     public GameController gc;
     public bool triggerOnce = false;
 
-    private void OnTriggerEnter(Collider other)
+    private async void OnTriggerEnter(Collider other)
     {
         if (triggerOnce == true)
             return;
@@ -18,6 +19,8 @@ public class SensorLevel2 : MonoBehaviour
         info.gameObject.SetActive(true);
         gc.killsCounter = 0;
         doorSensors.gameObject.SetActive(false);
+        await Task.Delay(3000);
+        info.gameObject.SetActive(false);
         triggerOnce = true;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI textoContBalas;
     public TextMeshProUGUI victoryMessage;
     public GameObject BulletGIF;
+    public Image blackImage;
 
     [SerializeField] private Image bloodImage;
     [SerializeField] private float alpha = 0;
@@ -37,5 +39,5 @@ public class PlayerUI : MonoBehaviour
                 alpha = 0;
             }
         }
-    }     
+    }   
 }

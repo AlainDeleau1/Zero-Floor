@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +36,11 @@ public class CambiarOpacidad : MonoBehaviour
             Color color = imagen.color;
             color.a = Mathf.Lerp(opacidadInicial, opacidadFinal, t);
             imagen.color = color;
+        }
+
+        if (tiempoTranscurrido >= 25)
+        {
+            SceneManager.LoadScene("MenuPrincipal");
         }
     }
 }

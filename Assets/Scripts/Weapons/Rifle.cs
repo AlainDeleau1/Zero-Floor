@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Rifle : GunSystem
@@ -89,9 +89,11 @@ public class Rifle : GunSystem
         allowButtonHold = true;
     }
 
-    private void OnEnable()
+    private async void OnEnable()
     {
         riflePickedUpLoaded = false;
+        await Task.Delay(1500);
+        pickedUp = false;
     }
 
     private void Update()
