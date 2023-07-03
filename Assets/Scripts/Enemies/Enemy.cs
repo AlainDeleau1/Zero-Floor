@@ -10,12 +10,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected SoundManager sm;
     [SerializeField] protected GameController gc;
+
+    public ShooterEnemy shooterEnemy;
     
     protected bool damageReceived = false;
     protected Quaternion angulo;
     protected int currentHealth;
 
-    private bool died = false;
+    protected bool died = false;
 
     protected IEnumerator AttackDelay()
     {
@@ -26,17 +28,11 @@ public class Enemy : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0 && died == false)
-        {
-            sm.EnemyDeadSound();
-            Die();
-            died = true;
-        }
     }           
 
-    public void Die()
+    public void Die(float deathTime)
     {
-        Destroy(gameObject);
+        Destroy(gameObject, deathTime);
         gc.killsCounter++;
         gc.kills++;
         int healChance = Random.Range(0, 100);

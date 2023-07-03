@@ -6,21 +6,19 @@ public class BulletController : MonoBehaviour
     public PlayerUI ui;
     public Player player;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            var player = collision.collider.gameObject.GetComponent<Player>();
+            var player = other.gameObject.GetComponent<Player>();
             if (player != null)
             {
                 player.TakeDamage(damage);
                 ui = FindObjectOfType<PlayerUI>();
-                ui.ShowDamage(2);    
+                ui.ShowDamage(2);
+                //Destroy(gameObject, 2f);
             }
         }
-        if (collision.collider.gameObject.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
+
     }
 }

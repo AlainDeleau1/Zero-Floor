@@ -11,8 +11,7 @@ public class BombScript2 : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
 
-    public GameObject level;
-    public GameObject radioBomb;
+    public GameObject level, radioBomb, killsCounter, spawners2;
 
     bool played = false;
     bool explosionPlayed = false;
@@ -21,6 +20,8 @@ public class BombScript2 : MonoBehaviour
     public AudioClip slapSlap;
     public ParticleSystem explosionEffect;
     public GameObject doorSensors;
+
+    public bool levelTwoIsActive = true;
 
     private void Update()
     {
@@ -36,8 +37,9 @@ public class BombScript2 : MonoBehaviour
             doorSensors.gameObject.SetActive(true);
             gameController.killsCounter = 0;
 
-            Destroy(gameObject);
-            Destroy(level);
+            Destroy(spawners2);
+            radioBomb.gameObject.SetActive(false);
+            level.gameObject.SetActive(false);
 
             explosionPlayed = true;
         }
@@ -47,5 +49,11 @@ public class BombScript2 : MonoBehaviour
             audioSource.PlayOneShot(slapSlap);
             played = true;
         }
-    }     
+    }
+    private void OnDisable()
+    {
+        killsCounter.gameObject.SetActive(false);
+        levelTwoIsActive = false;
+        print("parlante 2 desactivado");
+    }
 }

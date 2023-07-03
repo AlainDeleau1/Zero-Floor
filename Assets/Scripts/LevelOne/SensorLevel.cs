@@ -3,18 +3,20 @@ using TMPro;
 
 public class SensorLevel : MonoBehaviour
 {
-    public GameObject levelOne, doorSensors;
+    public GameObject levelOne, doorSensors, killsCounter;
     public TextMeshProUGUI info, bathDoorText;
     public int dropKeyChance;
-    public static bool boolean = true;
+    public bool triggerOnce = false;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (triggerOnce == true)
+            return;
+          
         levelOne.gameObject.SetActive(true);
+        killsCounter.gameObject.SetActive(true);
         info.gameObject.SetActive(true);
-        if (boolean)
-        {
-            doorSensors.gameObject.SetActive(false);
-        }     
+        doorSensors.gameObject.SetActive(false);
+        triggerOnce = true;
     }
 }
