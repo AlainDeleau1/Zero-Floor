@@ -1,16 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using System.Collections;
 
 public class GameController : MonoBehaviour
 {
     public int kills, killsCounter;
     public GameObject enemySpawners, enemySpawners2, levelOne, levelTwo;
     [SerializeField] private TextMeshProUGUI wonText, killsText;
-    public Checkpoint checkpoint;
-    public Transform checkpointTransform;
-    public GameObject player;
+    public BombScript bs;
+    public BombScript2 bs2;
 
     public void RestartLevel()
     {
@@ -24,16 +22,16 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        SpawnEnemiesOne();
-         
-        SpawnEnemiesTwo();
-        
+        if (bs.levelOneIsActive == true)       
+            SpawnEnemiesOne();  
+        else
+            SpawnEnemiesTwo();       
         killsText.text = killsCounter.ToString();
     }
 
     private void SpawnEnemiesOne()
     {
-        if (kills < 10 || !levelOne.activeInHierarchy)
+        if (kills < 10)
             return;
 
         print("SPAWN LEVEL ONE");
@@ -42,7 +40,7 @@ public class GameController : MonoBehaviour
     }
     private void SpawnEnemiesTwo()
     {
-        if (kills < 10 || !levelTwo.activeInHierarchy)
+        if (kills < 10)
             return;
 
         print("SPAWN LEVEL TWO");

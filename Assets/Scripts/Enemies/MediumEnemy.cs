@@ -88,6 +88,17 @@ public class MediumEnemy : Enemy
     {       
         ani.SetTrigger("AttackMediumEnemy");
     }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (currentHealth <= 0 && died == false)
+        {
+            sm.EnemyDeadSound();
+            Die(0f);
+            died = true;
+        }
+    }
 }
 
 

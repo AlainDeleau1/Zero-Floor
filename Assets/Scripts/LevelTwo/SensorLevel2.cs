@@ -3,17 +3,21 @@ using TMPro;
 
 public class SensorLevel2 : MonoBehaviour
 {
-    public GameObject levelTwo, doorSensors;
-    public TextMeshProUGUI info, bathDoorText;
-    public bool boolean = true;
+    public GameObject levelTwo, doorSensors, killsCounter;
+    public TextMeshProUGUI info, bathDoorText, killsCounterText;
+    public GameController gc;
+    public bool triggerOnce = false;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (triggerOnce == true)
+            return;
+
         levelTwo.gameObject.SetActive(true);
+        killsCounter.gameObject.SetActive(true);
         info.gameObject.SetActive(true);
-        if (boolean)
-        {
-            doorSensors.gameObject.SetActive(false);
-        }
+        gc.killsCounter = 0;
+        doorSensors.gameObject.SetActive(false);
+        triggerOnce = true;
     }
 }

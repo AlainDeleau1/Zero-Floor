@@ -13,7 +13,7 @@ public class ShooterEnemy : Enemy
     private bool isChasing;
 
     [SerializeField] private int startingHealth = 100;
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float rotationSpeed = 1f;
 
     public LayerMask layerPlayer;
 
@@ -24,6 +24,8 @@ public class ShooterEnemy : Enemy
     public GameObject particlesEffect;
 
     int bulletEnemyForce = 6000;
+
+    public Animator ani;
 
     private void Start()
     {
@@ -74,6 +76,9 @@ public class ShooterEnemy : Enemy
 
     private void ChasePlayer()
     {
+        if (died)
+            return;
+             
         transform.LookAt(target.transform);
 
         agent.SetDestination(target.transform.position);
@@ -97,6 +102,7 @@ public class ShooterEnemy : Enemy
                 if (player != null && damageReceived == false)
                 {
                     FireProjectile();
+                    print("dispara enemy");
                     damageReceived = true;
                     StartCoroutine(newAttackDelay());
                 }
@@ -116,6 +122,9 @@ public class ShooterEnemy : Enemy
 
     private void FireProjectile()
     {
+        if (died)
+            return;
+
         GameObject newProjectile = Instantiate(bulletEnemyPrefab, muzzleEnemyGun.position, muzzleEnemyGun.rotation);
         Rigidbody projectileRigidbody = newProjectile.GetComponent<Rigidbody>();
         projectileRigidbody.AddForce(muzzleEnemyGun.forward * bulletEnemyForce);
@@ -127,6 +136,18 @@ public class ShooterEnemy : Enemy
         particlesEffect.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         particlesEffect.SetActive(false);
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (currentHealth <= 0 && died == false)
+        {
+            ani.SetTrigger("DeathAnimation");
+            sm.EnemyDeadSound();
+            Die(2f);
+            died = true;
+        }
     }
 }
 
