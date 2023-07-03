@@ -13,7 +13,7 @@ public class SensorLevel : MonoBehaviour
     {
         if (triggerOnce == true)
             return;
-          
+
         levelOne.gameObject.SetActive(true);
         killsCounter.gameObject.SetActive(true);
         info.gameObject.SetActive(true);

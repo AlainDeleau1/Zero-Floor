@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         {
             currentHealth -= damage;
             sm.EnemyAttackSound();
+            sm.PlayerDamagedSound();
             healthHUD.text = currentHealth.ToString();
             Invulnerability();
             damaged = true;

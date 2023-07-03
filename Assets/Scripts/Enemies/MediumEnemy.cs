@@ -35,7 +35,7 @@ public class MediumEnemy : Enemy
             if (isChasing)
             {
                 ChasePlayer();
-                if (Vector3.Distance(transform.position, target.transform.position) < 2f)
+                if (Vector3.Distance(transform.position, target.transform.position) < 2f && died == false)
                 {
                     Attack();
                 }
@@ -93,10 +93,11 @@ public class MediumEnemy : Enemy
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 
-    private void Attack()
+    private async void Attack()
     {
         if (died)
             return;
+        await Task.Delay(100);
         ani.SetTrigger("AttackMediumEnemy");
     }
 

@@ -7,6 +7,8 @@ public class BombScript : MonoBehaviour
     public SoundManager soundManager;
     public PauseMenu pauseMenu;
 
+    public Transform spawnRifle;
+
     public CameraShake cameraShake;
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
@@ -28,7 +30,7 @@ public class BombScript : MonoBehaviour
         if (gameController.killsCounter >= 35 && explosionPlayed == false)
         {
             Instantiate(explosionEffect, radioBomb.transform.position, radioBomb.transform.rotation);
-            Instantiate(rifle, radioBomb.transform.position, radioBomb.transform.rotation);
+            Instantiate(rifle, spawnRifle.transform.position, spawnRifle.transform.rotation);
             cameraShake.StartCoroutine(cameraShake.Shake(duration, magnitude));
             soundManager.ExplosionDefeat();
             audioSource.Stop();
