@@ -2,18 +2,20 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class FinalCoroutine : MonoBehaviour
 {
     public Image blackImage;
     public BombScript2 bs2;
 
-    void Update()
+    async void Update()
     {
         if (bs2.demoFinished == true)
         {
             StartCoroutine(FadeToBlack());
-
+            await Task.Delay(1500);
+            SceneManager.LoadScene("FinalScene");
         }
     }
     public IEnumerator FadeToBlack()
@@ -31,12 +33,12 @@ public class FinalCoroutine : MonoBehaviour
             newColor.a = Mathf.Lerp(startAlpha, targetAlpha, t);
             blackImage.color = newColor;
 
+
             yield return null;
         }
 
         Color finalColor = blackImage.color;
         finalColor.a = targetAlpha;
-        blackImage.color = finalColor;
-        SceneManager.LoadScene("FinalScene");
+        blackImage.color = finalColor;  
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class CreditosOpacidad : MonoBehaviour
 {
-    public float duracionAparicion = 2f; // Duración de la aparición en segundos
-    public float duracionDesvanecimiento = 2f; // Duración del desvanecimiento en segundos
-    public float duracionDesaparicion = 2f; // Duración de la desaparición en segundos
-    public float tiempoDemora = 1f; // Tiempo de demora antes de la aparición en segundos
+    public float duracionAparicion = 2f;
+    public float duracionDesvanecimiento = 2f;
+    public float duracionDesaparicion = 2f;
+    public float tiempoDemora = 1f;
 
     private Image imagen;
     private float tiempoTranscurrido = 0f;
@@ -17,8 +17,6 @@ public class CreditosOpacidad : MonoBehaviour
     private void Start()
     {
         imagen = GetComponent<Image>();
-
-        // Iniciar con opacidad en 0
         Color color = imagen.color;
         color.a = 0f;
         imagen.color = color;
@@ -42,10 +40,9 @@ public class CreditosOpacidad : MonoBehaviour
         {
             if (tiempoTranscurrido < duracionAparicion)
             {
-                // Aparición gradual
                 tiempoTranscurrido += Time.deltaTime;
 
-                float t = tiempoTranscurrido / duracionAparicion; // Interpolación normalizada (0 a 1)
+                float t = tiempoTranscurrido / duracionAparicion;
 
                 Color color = imagen.color;
                 color.a = Mathf.Lerp(0f, 1f, t);
@@ -53,15 +50,13 @@ public class CreditosOpacidad : MonoBehaviour
             }
             else if (tiempoTranscurrido < duracionAparicion + duracionDesvanecimiento)
             {
-                // Mantener imagen visible
                 tiempoTranscurrido += Time.deltaTime;
             }
             else if (tiempoTranscurrido < duracionAparicion + duracionDesvanecimiento + duracionDesaparicion)
             {
-                // Desaparición gradual
                 tiempoTranscurrido += Time.deltaTime;
 
-                float t = (tiempoTranscurrido - duracionAparicion - duracionDesvanecimiento) / duracionDesaparicion; // Interpolación normalizada (0 a 1)
+                float t = (tiempoTranscurrido - duracionAparicion - duracionDesvanecimiento) / duracionDesaparicion;
 
                 Color color = imagen.color;
                 color.a = Mathf.Lerp(1f, 0f, t);

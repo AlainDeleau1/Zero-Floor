@@ -1,30 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//TP2 - Felipe Nunez y Augusto Couture - Delegate
 public class FOVSlider : MonoBehaviour
 {
     public Camera cam;
     public Camera cam2;
     public Slider slider;
 
-    private float defaultFOV; // Valor del FOV por defecto
+    private float defaultFOV;
 
-    private bool isDashing = false; // Variable para controlar si se está dasheando
+    private bool isDashing = false;
 
     private void Start()
     {
-        defaultFOV = cam.fieldOfView; // Guardamos el valor por defecto del FOV
+        defaultFOV = cam.fieldOfView;
 
         slider.minValue = 60f;
         slider.maxValue = 120f;
-
-        // Configuramos el listener solo si se modifica el FOV desde el slider
         slider.onValueChanged.AddListener(delegate { OnSliderValueChanged(); });
     }
 
     private void OnSliderValueChanged()
     {
-        if (!isDashing) // Solo se actualiza el FOV si no se está dasheando
+        if (!isDashing)
         {
             float fov = slider.value;
             cam.fieldOfView = fov;
@@ -32,10 +31,9 @@ public class FOVSlider : MonoBehaviour
         }
     }
 
-    // Método para establecer el FOV desde el menú de pausa
     public void SetFOVFromMenu(float fov)
     {
-        if (!isDashing) // Solo se actualiza el FOV si no se está dasheando
+        if (!isDashing)
         {
             slider.value = fov;
             cam.fieldOfView = fov;
@@ -43,7 +41,6 @@ public class FOVSlider : MonoBehaviour
         }
     }
 
-    // Método para restaurar el FOV por defecto
     public void ResetFOV()
     {
         slider.value = defaultFOV;
@@ -51,19 +48,16 @@ public class FOVSlider : MonoBehaviour
         cam2.fieldOfView = defaultFOV;
     }
 
-    // Método para indicar que se está iniciando el dasheo
     public void StartDash()
     {
         isDashing = true;
     }
 
-    // Método para indicar que se ha detenido el dasheo
     public void StopDash()
     {
         isDashing = false;
     }
 
-    // Método para obtener el FOV actual
     public float GetCurrentFOV()
     {
         return cam.fieldOfView;

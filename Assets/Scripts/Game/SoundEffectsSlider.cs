@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//TP2 - Felipe Nunez y Augusto Couture - Delegate
 public class SoundEffectsSlider : MonoBehaviour
 {
     public Slider slider;
