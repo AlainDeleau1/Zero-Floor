@@ -16,7 +16,6 @@ public class BulletController : MonoBehaviour
                 player.TakeDamage(damage);
                 ui = FindObjectOfType<PlayerUI>();
                 ui.ShowDamage(2);
-                //Destroy(gameObject, 2f);
             }
         }
 

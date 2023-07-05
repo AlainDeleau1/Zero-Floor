@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class CambiarOpacidad : MonoBehaviour
 {
-    public float duracion = 2f; // Duración de la transición en segundos
-    public float opacidadFinal = 1f; // Opacidad final
+    public float duracion = 2f;
+    public float opacidadFinal = 1f;
 
     private Image imagen;
     private float opacidadInicial = 0f;
@@ -26,13 +26,11 @@ public class CambiarOpacidad : MonoBehaviour
         {
             tiempoTranscurrido += Time.deltaTime;
 
-            float t = tiempoTranscurrido / duracion; // Interpolación normalizada (0 a 1)
+            float t = tiempoTranscurrido / duracion;
 
-            // Cambiar opacidad usando CanvasRenderer
             CanvasRenderer canvasRenderer = imagen.canvasRenderer;
             canvasRenderer.SetAlpha(Mathf.Lerp(opacidadInicial, opacidadFinal, t));
 
-            // Cambiar opacidad usando Image.color
             Color color = imagen.color;
             color.a = Mathf.Lerp(opacidadInicial, opacidadFinal, t);
             imagen.color = color;
