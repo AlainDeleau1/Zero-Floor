@@ -1,44 +1,72 @@
 using UnityEngine;
+using System.Collections;
 public abstract class GunSystem : MonoBehaviour
 {
-    public bool pickedUp = false;
-    public bool readyToShoot;
-    public int bulletsLeft, bulletsPerTap;
+    [Header("Stats")]
+    public int damage;
+    public int bulletsLeft;
+    public int bulletsPerTap;
+    public int magazineSize;
+    public int bulletsShot;
     public float timeBetweenShooting;
     public float range;
     public float reloadTime;
-    public float duration;
-    public float magnitude;
+    public float spread;
+    public float timeBetweenShots;
+    public bool pickedUp;
+    public bool readyToShoot;
+    public bool allowButtonHold;
+    public bool shooting;
+    public bool reloading;
 
     [Header("References")]
-    [SerializeField] protected new Camera camera;
-    [SerializeField] protected LayerMask whatIsEnemy, walls;
     public Player p;
-    public GameObject bloodParticles;
+    public new Camera camera;
+    public SoundManager sm;
+    public PlayerUI ui;
+    public Animator anim;
+    public LayerMask whatIsEnemy, walls;
 
-    protected RaycastHit rayHit;
-    protected bool allowButtonHold;
-    protected bool shooting, reloading;
-    protected int bulletsShot;
-    public int magazineSize;
+    [Header("Particles")]
+    public GameObject bloodParticles; 
+    public GameObject reloadPrefab;
+    public GameObject muzzleEffect;
+    public float muzzleEffectDelay;
+    public ParticleSystem bulletHolePrefab;
+
+    [Header("Camera Shake")]
+    public CameraShake cameraShake;
+    public float duration, magnitude;
+    protected RaycastHit rayHit; 
 
     public virtual void MyInput()
     {
-        if (p.died)
+        if (p.died == false)
         {
-            return;
-        }
+            
+            if (allowButtonHold)
+            {
+                shooting = Input.GetKey(KeyCode.Mouse0);
+            }
+            else
+            {
+                shooting = Input.GetKeyDown(KeyCode.Mouse0);
+            }
 
-        if (allowButtonHold)
-        {
-            shooting = Input.GetKey(KeyCode.Mouse0);
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading)
+            {
+                Reload();
+            }
         }
-        else
-        {
-            shooting = Input.GetKeyDown(KeyCode.Mouse0);
-        }
+        return;
     }
 
+    protected void DecalParticles()
+    {
+        ParticleSystem spawnedParticles = Instantiate(bulletHolePrefab, rayHit.point, Quaternion.LookRotation(rayHit.normal));
+        spawnedParticles.Emit(1);
+        Destroy(spawnedParticles.gameObject, 2f);
+    }
 
     protected void ResetShot()
     {
@@ -49,6 +77,39 @@ public abstract class GunSystem : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    protected void Update()
+    {
+        MyInput();
+        ui.textoContBalas.text = bulletsLeft.ToString();
+    }
+
+    protected IEnumerator MuzzleEffect()
+    {
+        muzzleEffect.SetActive(true);
+        yield return new WaitForSeconds(muzzleEffectDelay);
+        muzzleEffect.SetActive(false);
+    }
+
+    protected void BloodParticles()
+    {
+        GameObject newBloodParticles = Instantiate(bloodParticles, rayHit.point, Quaternion.identity);
+
+        if (rayHit.collider.gameObject.CompareTag("Enemy"))
+        {
+            Transform enemyTransform = rayHit.collider.gameObject.transform;
+            newBloodParticles.transform.parent = enemyTransform;
+        }
+        Destroy(newBloodParticles, 2f);
+    }
+
+    public virtual void Reload()
+    {
+        if (p.died || reloading)
+            return;
+        reloading = true;
+        Invoke("ReloadFinished", reloadTime);
     }
 }
 
