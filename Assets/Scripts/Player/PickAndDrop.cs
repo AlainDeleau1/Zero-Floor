@@ -95,7 +95,7 @@ public class PickAndDrop: MonoBehaviour
         currentWeapon.GetComponent<Rigidbody>().freezeRotation = true;
         currentWeapon.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
-        currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true;
+        currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true || currentWeapon.GetComponent<MeleeSystem>().enabled = true;
         currentWeapon.GetComponent<GunSystem>().pickedUp = true;
     }
 

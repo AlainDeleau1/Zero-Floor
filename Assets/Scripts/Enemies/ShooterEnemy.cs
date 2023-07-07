@@ -21,7 +21,7 @@ public class ShooterEnemy : Enemy
 
     public GameObject bulletEnemyPrefab;
 
-    public GameObject particlesEffect;
+    public GameObject muzzleEffect;
 
     int bulletEnemyForce = 6000;
 
@@ -134,14 +134,14 @@ public class ShooterEnemy : Enemy
         GameObject newProjectile = Instantiate(bulletEnemyPrefab, muzzleEnemyGun.position, muzzleEnemyGun.rotation);
         Rigidbody projectileRigidbody = newProjectile.GetComponent<Rigidbody>();
         projectileRigidbody.AddForce(muzzleEnemyGun.forward * bulletEnemyForce);
-        StartCoroutine(ParticleView());
+        StartCoroutine(MuzzleEffect());
     }
 
-    private IEnumerator ParticleView()
+    private IEnumerator MuzzleEffect()
     {
-        particlesEffect.SetActive(true);
+        muzzleEffect.SetActive(true);
         yield return new WaitForSeconds(0.2f);
-        particlesEffect.SetActive(false);
+        muzzleEffect.SetActive(false);
     }
 
     public override void TakeDamage(int damage)

@@ -50,7 +50,6 @@ public class EnemySpawners : MonoBehaviour
         instantiated = 0;
     }
 
-
     private async void OnEnable()
     {
         await Task.Delay(20);

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource pickedWeaponSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound, deathEnemySound, moaningEnemySound;
+    public AudioSource shotgunPickUpSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound, deathEnemySound, moaningEnemySound;
 
-    public void PickedWeaponSound()
+    public void ShotgunPickUpSound()
     {
-        pickedWeaponSound.PlayOneShot(pickedWeaponSound.clip);
+        shotgunPickUpSound.PlayOneShot(shotgunPickUpSound.clip);
     }
 
     public void ShootSound()
