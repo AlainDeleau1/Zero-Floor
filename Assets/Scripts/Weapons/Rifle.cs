@@ -74,7 +74,12 @@ public class Rifle : GunSystem
     public override void Reload()
     {
         base.Reload();
-        sm.RifleReloadSound();
+        if (!reloading)
+        {
+            sm.RifleReloadSound();
+            reloading = true;
+        }
+
     }
 }
 

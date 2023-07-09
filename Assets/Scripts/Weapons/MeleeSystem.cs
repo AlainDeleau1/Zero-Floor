@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public abstract class MeleeSystem : MonoBehaviour
 {
@@ -31,6 +30,7 @@ public abstract class MeleeSystem : MonoBehaviour
         if (p.died == false)
         {
             attacking = Input.GetKeyDown(KeyCode.Mouse0);
+
         }
     }
 
@@ -50,6 +50,7 @@ public abstract class MeleeSystem : MonoBehaviour
 
         readyToAttack = false;
         Invoke("ResetAttack", attackRate);
+        anim.SetTrigger("AttackAnim");
     }
 
     protected void ResetAttack()

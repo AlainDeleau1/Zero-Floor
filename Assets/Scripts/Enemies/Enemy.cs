@@ -4,31 +4,41 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [Header("Stats")]
+    public int startingHealth = 100;
+    public float rotationSpeed = 1f;
+    public float patrolRadius = 10f;
+    public float patrolSpeed = 2f;
+    public float chaseSpeed = 4f;
+    public float attackDelay;
+    public float inRange;
+    public float attackRange;
+    public bool died = false;
+    protected bool isPatrolling;
+    protected bool isChasing;
+    protected Vector3 patrolPoint;
+    protected int currentHealth;
+    protected bool damageReceived = false;
+    protected bool attacking;
+    protected Quaternion angulo;
+
+    [Header("References")]
     [SerializeField] protected GameObject target, pill;
-    [SerializeField] protected float attackVelocity;
-    [SerializeField] protected float inRange;
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected SoundManager sm;
     [SerializeField] protected GameController gc;
-
-    public ShooterEnemy shooterEnemy;
-    
-    protected bool damageReceived = false;
-    protected Quaternion angulo;
-    protected int currentHealth;
-
-    public bool died = false;
+    public Animator ani;
 
     protected IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(attackVelocity);
+        yield return new WaitForSeconds(attackDelay);
         damageReceived = false;
     }
 
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
-    }           
+    }
 
     public void Die(float deathTime)
     {
@@ -42,5 +52,39 @@ public class Enemy : MonoBehaviour
             GameObject newPill = Instantiate(pill, pillSpawnPosition, Quaternion.identity);
             Destroy(newPill, 10f);
         }
+    }
+
+    protected void Patrol()
+    {
+        if (died)
+            return;
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            SetRandomPatrolPoint();
+        }
+
+        agent.SetDestination(patrolPoint);
+        agent.speed = patrolSpeed;
+    }
+
+    public void SetRandomPatrolPoint()
+    {
+        if (died)
+            return;
+        Vector3 randomPoint = transform.position + Random.insideUnitSphere * patrolRadius;
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(randomPoint, out hit, patrolRadius, NavMesh.AllAreas))
+        {
+            patrolPoint = hit.position;
+        }
+    }
+
+    public virtual void ChasePlayer()
+    {
+        if (died || attacking)
+            return;
+        agent.SetDestination(target.transform.position);
+        agent.speed = chaseSpeed;
     }
 }

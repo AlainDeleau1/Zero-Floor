@@ -96,7 +96,11 @@ public class Shotgun : GunSystem
     public override void Reload()
     {
         base.Reload();
-        StartCoroutine(ReloadPrefab());
-        sm.ReloadSound();
-    }  
+        if (!reloading)
+        {
+            StartCoroutine(ReloadPrefab());
+            sm.ReloadSound();
+            reloading = true;
+        }
+    }
 }

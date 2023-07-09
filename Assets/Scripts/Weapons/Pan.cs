@@ -3,12 +3,15 @@ using System.Threading.Tasks;
 
 public class Pan : MeleeSystem
 {
-
-    void Start()
+    public override void MyInput()
     {
+        base.MyInput();
 
+        if (attacking)
+        {
+            PerformAttack();
+        }
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Enemy>())
