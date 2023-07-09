@@ -4,28 +4,11 @@ using System.Collections;
 
 public class ShooterEnemy : Enemy
 {
-    public float patrolRadius = 10f;
-    public float patrolSpeed = 2f;
-    public float chaseSpeed = 4f;
-
-    [SerializeField] private Vector3 patrolPoint;
-    private bool isPatrolling;
-    private bool isChasing;
-
-    [SerializeField] private int startingHealth = 100;
-    [SerializeField] private float rotationSpeed = 1f;
-
     public LayerMask layerPlayer;
-
     public Transform muzzleEnemyGun;
-
     public GameObject bulletEnemyPrefab;
-
     public GameObject muzzleEffect;
-
     int bulletEnemyForce = 6000;
-
-    public Animator ani;
 
     private void Start()
     {
@@ -55,42 +38,9 @@ public class ShooterEnemy : Enemy
         }
     }
 
-    private void Patrol()
+    public override void ChasePlayer()
     {
-        if (died)
-            return;
-        if (agent.remainingDistance <= agent.stoppingDistance)
-        {
-            SetRandomPatrolPoint();
-        }
-
-        agent.SetDestination(patrolPoint);
-        agent.speed = patrolSpeed;
-    }
-
-    private void SetRandomPatrolPoint()
-    {
-        if (died)
-            return;
-        Vector3 randomPoint = transform.position + Random.insideUnitSphere * patrolRadius;
-        NavMeshHit hit;
-
-        if (NavMesh.SamplePosition(randomPoint, out hit, patrolRadius, NavMesh.AllAreas))
-        {
-            patrolPoint = hit.position;
-        }
-    }
-
-    private void ChasePlayer()
-    {
-        if (died)
-            return;
-             
-        transform.LookAt(target.transform);
-
-        agent.SetDestination(target.transform.position);
-        agent.speed = chaseSpeed;
-
+        base.ChasePlayer();
         Vector3 targetDirection = target.transform.position - transform.position;
         targetDirection.y = 0f;
         targetDirection.Normalize();
@@ -108,9 +58,8 @@ public class ShooterEnemy : Enemy
                 if (player != null && damageReceived == false)
                 {
                     FireProjectile();
-                    print("dispara enemy");
                     damageReceived = true;
-                    StartCoroutine(newAttackDelay());
+                    StartCoroutine(AttackDelay());
                 }
             }
         }
@@ -118,12 +67,6 @@ public class ShooterEnemy : Enemy
         {
             Debug.DrawRay(muzzleEnemyGun.transform.position, targetDirection * inRange, Color.red);
         }
-    }
-
-    private IEnumerator newAttackDelay()
-    {
-        yield return new WaitForSeconds(.35f);
-        damageReceived = false;
     }
 
     private void FireProjectile()

@@ -108,7 +108,6 @@ public abstract class GunSystem : MonoBehaviour
     {
         if (p.died || reloading)
             return;
-        reloading = true;
         Invoke("ReloadFinished", reloadTime);
     }
 }

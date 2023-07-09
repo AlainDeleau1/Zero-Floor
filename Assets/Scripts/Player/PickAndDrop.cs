@@ -9,7 +9,8 @@ public class PickAndDrop: MonoBehaviour
     public GameObject currentWeapon;
     public GameObject weapon;
     public PlayerUI ui;
-    public GunSystem gs;
+    public GunSystem gunSystem;
+    public MeleeSystem meleeSystem;
 
     public Rigidbody weaponRigidbody;
 
@@ -19,7 +20,8 @@ public class PickAndDrop: MonoBehaviour
 
     private void Start()
     {
-        gs = FindObjectOfType<GunSystem>();
+        gunSystem = FindObjectOfType<GunSystem>();
+        meleeSystem = FindObjectOfType<MeleeSystem>();
     }
     private void Update()
     {
@@ -28,18 +30,16 @@ public class PickAndDrop: MonoBehaviour
         if (canGrab)
         {
 
-            if (Input.GetKeyDown(KeyCode.E) && gs.pickedUp == false)
+            if (Input.GetKeyDown(KeyCode.E) && gunSystem.pickedUp == false)
             {
                 if (currentWeapon != null)
-                {
-                    currentWeapon.GetComponent<GunSystem>().readyToShoot = false;               
+                {           
                     Drop();
                     fixCamera.gameObject.SetActive(false);
                 }
 
                 Pickup();
-                fixCamera.gameObject.SetActive(true);
-                currentWeapon.GetComponent<GunSystem>().readyToShoot = true;              
+                fixCamera.gameObject.SetActive(true);            
             }
         }
 
@@ -47,7 +47,6 @@ public class PickAndDrop: MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                currentWeapon.GetComponent<GunSystem>().readyToShoot = false;
                 Drop();
                 fixCamera.gameObject.SetActive(false);
             }               
@@ -76,12 +75,12 @@ public class PickAndDrop: MonoBehaviour
 
     private void Pickup()
     {
-        if (gs.pickedUp == true)
+        if (gunSystem.pickedUp == true)
         {
             return;
         }
+
         currentWeapon = weapon;
-        gs = currentWeapon.GetComponent<GunSystem>();
         currentWeapon.transform.parent = gunPos;
         currentWeapon.transform.position = gunPos.position;
         currentWeapon.transform.localEulerAngles = new Vector3(0f, 0f, 0f);
@@ -89,19 +88,56 @@ public class PickAndDrop: MonoBehaviour
         ui.textoContBalas.gameObject.SetActive(true);
         ui.BulletGIF.gameObject.SetActive(true);
         weaponRigidbody = currentWeapon.GetComponent<Rigidbody>();
-
+        
         currentWeapon.GetComponent<Rigidbody>().useGravity = false;
         currentWeapon.GetComponent<Animator>().enabled = true;
         currentWeapon.GetComponent<Rigidbody>().freezeRotation = true;
         currentWeapon.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = true;
-        currentWeapon.gameObject.GetComponent<GunSystem>().enabled = true; // currentWeapon.GetComponent<MeleeSystem>().enabled = true;
-        currentWeapon.GetComponent<GunSystem>().pickedUp = true;
+
+        if (currentWeapon != null)
+        {
+            GunSystem gunSystem = currentWeapon.GetComponent<GunSystem>();
+            MeleeSystem meleeSystem = currentWeapon.GetComponent<MeleeSystem>();
+
+            if (gunSystem != null)
+            {
+                gunSystem.readyToShoot = true;
+                gunSystem.enabled = true;
+                gunSystem.pickedUp = true;
+            }
+
+            if (meleeSystem != null)
+            {
+                meleeSystem.readyToAttack = true;
+                meleeSystem.enabled = true;
+                meleeSystem.pickedUp = true;
+            }
+        }
     }
 
     private void Drop()
     {
-        currentWeapon.GetComponent<GunSystem>().pickedUp = false;
+        if (currentWeapon != null)
+        {
+            GunSystem gunSystem = currentWeapon.GetComponent<GunSystem>();
+            MeleeSystem meleeSystem = currentWeapon.GetComponent<MeleeSystem>();
+
+            if (gunSystem != null)
+            {
+                gunSystem.readyToShoot = false;
+                gunSystem.pickedUp = false;
+                gunSystem.enabled = false;
+            }
+
+            if (meleeSystem != null)
+            {
+                meleeSystem.readyToAttack = false;
+                meleeSystem.pickedUp = false;
+                meleeSystem.enabled = false;
+            }
+        }
+
         currentWeapon.gameObject.transform.parent = null;
         ui.textoContBalas.gameObject.SetActive(false);
         ui.BulletGIF.gameObject.SetActive(false);
@@ -113,7 +149,6 @@ public class PickAndDrop: MonoBehaviour
 
         currentWeapon.GetComponent<Animator>().enabled = false;
         currentWeapon.GetComponentInChildren<BoxCollider>().isTrigger = false;
-        currentWeapon.gameObject.GetComponent<GunSystem>().enabled = false;
         currentWeapon = null;
         fixCamera.gameObject.SetActive(false);
     }
