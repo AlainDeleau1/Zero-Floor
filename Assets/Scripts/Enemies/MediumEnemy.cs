@@ -18,6 +18,7 @@ public class MediumEnemy : Enemy
         {
             isChasing = true;
             isPatrolling = false;
+
             if (isChasing)
             {
                 ChasePlayer();
@@ -45,6 +46,7 @@ public class MediumEnemy : Enemy
 
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        ani.SetBool("PatrolAnimation", false);
     }
 
     private void Attack()

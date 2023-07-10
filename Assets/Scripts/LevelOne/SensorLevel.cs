@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 public class SensorLevel : MonoBehaviour
 {
-    public GameObject levelOne, doorSensors, killsCounter;
+    public GameObject levelOne, killsCounter;
     public TextMeshProUGUI info, bathDoorText;
     public int dropKeyChance;
     public bool triggerOnce = false;
@@ -17,7 +17,6 @@ public class SensorLevel : MonoBehaviour
         levelOne.gameObject.SetActive(true);
         killsCounter.gameObject.SetActive(true);
         info.gameObject.SetActive(true);
-        doorSensors.gameObject.SetActive(false);
         await Task.Delay(3000);
         info.gameObject.SetActive(false);
         triggerOnce = true;

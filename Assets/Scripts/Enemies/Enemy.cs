@@ -65,6 +65,7 @@ public class Enemy : MonoBehaviour
 
         agent.SetDestination(patrolPoint);
         agent.speed = patrolSpeed;
+        ani.SetBool("PatrolAnimation", true);
     }
 
     public void SetRandomPatrolPoint()

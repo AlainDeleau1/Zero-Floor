@@ -17,6 +17,7 @@ public class EnemySpawners : MonoBehaviour
     public Transform player;
     public int rangeEnemySpawner;
     public int instantiated;
+    public int enemiesPerWave;
 
     private void Update()
     {
@@ -32,7 +33,7 @@ public class EnemySpawners : MonoBehaviour
         for (int i = 0; i < enemySpawners.Length; i++)
         {
             float distance = Vector3.Distance(enemySpawners[i].position, player.position);
-            if (distance > rangeEnemySpawner && instantiated <= 9)
+            if (distance > rangeEnemySpawner && instantiated <= enemiesPerWave)
             {
                 EnemySpawnParameters spawnParameters = new EnemySpawnParameters
                 {
@@ -46,7 +47,6 @@ public class EnemySpawners : MonoBehaviour
                 instantiated++;
             }
         }
-
         instantiated = 0;
     }
 
