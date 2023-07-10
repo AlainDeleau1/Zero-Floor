@@ -1,13 +1,12 @@
 using UnityEngine;
 using TMPro;
-using System.Threading.Tasks;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
+
     public int currentHealth;
-
-    [SerializeField] public TextMeshProUGUI healthHUD;
-
     private int startingHealth = 100;
     public bool died = false;
     private bool damaged = false;
@@ -15,10 +14,12 @@ public class Player : MonoBehaviour
     private PlayerCam playerCam;
     private PlayerUI playerUI;
 
+    public GameObject cameraHolder;
     [SerializeField] private SoundManager sm;
     [SerializeField] private LayerMask Weapon;
     [SerializeField] private new Camera camera;
     [SerializeField] private GameController gc;
+    [SerializeField] public TextMeshProUGUI healthHUD;
     
     public void TakeDamage(int damage)
     {
@@ -28,7 +29,8 @@ public class Player : MonoBehaviour
             sm.EnemyAttackSound();
             sm.PlayerDamagedSound();
             healthHUD.text = currentHealth.ToString();
-            Invulnerability();
+            playerUI.ShowDamage(2);
+            StartCoroutine(Delay(.75f));
             damaged = true;
         }
 
@@ -48,6 +50,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        cameraHolder.gameObject.SetActive(true);
         playerCam = GetComponent<PlayerCam>();
         playerMovement = GetComponent<PlayerMovement>();
 
@@ -59,7 +62,7 @@ public class Player : MonoBehaviour
         healthHUD.text = currentHealth.ToString();
     }
 
-    private async void Die()
+    private void Die()
     {
         playerUI.deathText.gameObject.SetActive(true);
         
@@ -73,15 +76,16 @@ public class Player : MonoBehaviour
 
         died = true;
 
-        await Task.Delay(1500);
+        StartCoroutine(Delay(1.5f));
         gc.RestartLevel();
     }
 
-    private async void Invulnerability()
+    private IEnumerator Delay(float delay)
     {
-        await Task.Delay(750);
+        yield return new WaitForSeconds(delay);
         damaged = false;
     }
+
 }
 
 

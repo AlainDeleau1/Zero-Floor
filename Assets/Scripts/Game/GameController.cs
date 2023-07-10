@@ -5,10 +5,9 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
     public int kills, killsCounter;
-    public GameObject enemySpawners, enemySpawners2, levelOne, levelTwo;
+    public GameObject enemySpawners, levelOne, levelTwo;
     [SerializeField] private TextMeshProUGUI wonText, killsText;
     public BombScript bs;
-    public BombScript2 bs2;
 
     public void RestartLevel()
     {
@@ -21,32 +20,18 @@ public class GameController : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (bs.levelOneIsActive == true)       
-            SpawnEnemiesOne();  
-        else if (bs2.levelTwoIsActive == true)
-            SpawnEnemiesTwo();       
-        killsText.text = killsCounter.ToString();
+    {     
+          SpawnEnemiesOne(); 
     }
 
     private void SpawnEnemiesOne()
     {
-        if (kills < 10)
+        if (kills < 15)
             return;
 
         print("SPAWN LEVEL ONE");
         enemySpawners.gameObject.SetActive(true);
         kills = 0;
-    }
-    private void SpawnEnemiesTwo()
-    {
-        if (kills < 10)
-            return;
-
-        print("SPAWN LEVEL TWO");
-        enemySpawners2.gameObject.SetActive(true);
-        kills = 0;
-        
     }
 }
 
