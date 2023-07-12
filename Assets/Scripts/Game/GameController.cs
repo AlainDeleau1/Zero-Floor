@@ -5,9 +5,10 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
     public int kills, killsCounter;
-    public GameObject enemySpawners, levelOne, levelTwo;
-    [SerializeField] private TextMeshProUGUI wonText, killsText;
+    public GameObject enemySpawners, levelOne;
+    public TextMeshProUGUI wonText, killsText;
     public BombScript bs;
+    public EnemySpawners es;
 
     public void RestartLevel()
     {
@@ -20,17 +21,16 @@ public class GameController : MonoBehaviour
     }
 
     private void Update()
-    {     
-          SpawnEnemiesOne(); 
+    {
+        killsText.text = killsCounter.ToString();
+        if (kills == 1)
+            SpawnEnemiesOne();              
     }
 
     private void SpawnEnemiesOne()
     {
-        if (kills < 15)
-            return;
-
-        print("SPAWN LEVEL ONE");
         enemySpawners.gameObject.SetActive(true);
+        es.enemiesPerWave = 0;
         kills = 0;
     }
 }

@@ -9,15 +9,15 @@ public class FinalCoroutine : MonoBehaviour
     public Image blackImage;
     public BombScript2 bs2;
 
-    async void Update()
-    {
-        if (bs2.demoFinished == true)
-        {
-            StartCoroutine(FadeToBlack());
-            await Task.Delay(1500);
-            SceneManager.LoadScene("FinalScene");
-        }
-    }
+    //async void Update()
+    //{
+    //    if (bs2.demoFinished == true)
+    //    {
+    //        StartCoroutine(FadeToBlack());
+    //        await Task.Delay(1500);
+    //        SceneManager.LoadScene("FinalScene");
+    //    }
+    //}
     public IEnumerator FadeToBlack()
     {
         float fadeDuration = 1.5f;

@@ -1,14 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-//TP2 Alain Deleau - Struct
-public struct EnemySpawnParameters
-{
-    public Vector3 position;
-    public Quaternion rotation;
-    public int instantiated;
-}
-
 public class EnemySpawners : MonoBehaviour
 {
     public GameObject enemyPrefab;
@@ -18,6 +10,11 @@ public class EnemySpawners : MonoBehaviour
     public int rangeEnemySpawner;
     public int instantiated;
     public int enemiesPerWave;
+
+    private void Start()
+    {
+        enemiesPerWave = 14;
+    }
 
     private void Update()
     {
@@ -33,22 +30,19 @@ public class EnemySpawners : MonoBehaviour
         for (int i = 0; i < enemySpawners.Length; i++)
         {
             float distance = Vector3.Distance(enemySpawners[i].position, player.position);
+
             if (distance > rangeEnemySpawner && instantiated <= enemiesPerWave)
             {
-                EnemySpawnParameters spawnParameters = new EnemySpawnParameters
-                {
-                    position = enemySpawners[i].position,
-                    rotation = enemySpawners[i].rotation,
-                    instantiated = 0
-                };
+                int randomIndex = Random.Range(0, enemySpawners.Length);
+                Vector3 randomPosition = enemySpawners[randomIndex].position;
 
-                Instantiate(enemyPrefab, spawnParameters.position, spawnParameters.rotation);
-                spawnParameters.instantiated++;
+                Instantiate(enemyPrefab, randomPosition, enemySpawners[i].rotation);
                 instantiated++;
             }
         }
         instantiated = 0;
     }
+
 
     private async void OnEnable()
     {
