@@ -10,7 +10,6 @@ public class Pill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("exit");
         if (p.currentHealth < 100)
         {
             TakePill();

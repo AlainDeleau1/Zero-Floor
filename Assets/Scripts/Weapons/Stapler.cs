@@ -38,6 +38,7 @@ public class Stapler : GunSystem
                 {
                     sm.EnemyDamagedSound();
                     enemy.TakeDamage(damage);
+                    enemy.inRange = enemy.inRange * 10;
                     BloodParticles();
                 }
             }

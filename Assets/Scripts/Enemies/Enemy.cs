@@ -22,6 +22,10 @@ public class Enemy : MonoBehaviour
     protected bool attacking;
     protected Quaternion angulo;
 
+    public float radius = 1f;
+    public float distance = 10f;
+    public LayerMask detectionLayer;
+
     [Header("References")]
     [SerializeField] protected GameObject target, pill;
     [SerializeField] protected NavMeshAgent agent;
@@ -38,11 +42,13 @@ public class Enemy : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        RaycastChecksphere();
     }
 
     public void Die(float deathTime)
     {
         Destroy(gameObject, deathTime);
+        ani.SetTrigger("DeathAnimation");
         gc.killsCounter++;
         gc.kills++;
         int healChance = Random.Range(0, 100);
@@ -50,7 +56,6 @@ public class Enemy : MonoBehaviour
         {
             Vector3 pillSpawnPosition = agent.transform.position + new Vector3(0f, 1f, 0f);
             GameObject newPill = Instantiate(pill, pillSpawnPosition, Quaternion.identity);
-            Destroy(newPill, 10f);
         }
     }
 
@@ -87,5 +92,19 @@ public class Enemy : MonoBehaviour
             return;
         agent.SetDestination(target.transform.position);
         agent.speed = chaseSpeed;
+    }
+
+    private void RaycastChecksphere()
+    {
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, transform.forward, distance, detectionLayer);
+
+        foreach (RaycastHit hit in hits)
+        {
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.inRange *= 10;
+            }
+        }
     }
 }

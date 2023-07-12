@@ -92,7 +92,7 @@ public class ShooterEnemy : Enemy
         base.TakeDamage(damage);
         if (currentHealth <= 0 && died == false)
         {
-            ani.SetTrigger("DeathAnimation");
+
             sm.EnemyDeadSound();
             Die(2f);
             died = true;
