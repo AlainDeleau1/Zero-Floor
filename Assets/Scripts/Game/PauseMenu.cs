@@ -37,7 +37,7 @@ public class PauseMenu : MonoBehaviour
         paused = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-        AudioListener.pause = true;
+       // AudioListener.pause = true;
         cs.enabled = false;
     }
 
@@ -48,7 +48,7 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        AudioListener.pause = false;
+       // AudioListener.pause = false;
         cs.enabled = true;
     }
 
