@@ -1090,6 +1090,7 @@ GameObject:
   - component: {fileID: 221390902}
   - component: {fileID: 221390901}
   - component: {fileID: 221390900}
+  - component: {fileID: 221390903}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1211,6 +1212,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221390898}
   m_CullTransparentMesh: 1
+--- !u!114 &221390903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221390898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697123e2a6adb344b94f141bd9eebee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEntrySoundName: OnEntry
+  onClickedSoundName: OnClicked
 --- !u!43 &252565276
 Mesh:
   m_ObjectHideFlags: 0
@@ -8648,6 +8663,7 @@ GameObject:
   - component: {fileID: 1108806087}
   - component: {fileID: 1108806086}
   - component: {fileID: 1108806085}
+  - component: {fileID: 1108806088}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -8769,6 +8785,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108806083}
   m_CullTransparentMesh: 1
+--- !u!114 &1108806088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108806083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697123e2a6adb344b94f141bd9eebee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEntrySoundName: OnEntry
+  onClickedSoundName: OnClicked
 --- !u!1 &1117967677
 GameObject:
   m_ObjectHideFlags: 0
@@ -11941,6 +11971,7 @@ GameObject:
   - component: {fileID: 1446926312}
   - component: {fileID: 1446926311}
   - component: {fileID: 1446926310}
+  - component: {fileID: 1446926313}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -12062,6 +12093,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446926308}
   m_CullTransparentMesh: 1
+--- !u!114 &1446926313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446926308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697123e2a6adb344b94f141bd9eebee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEntrySoundName: OnEntry
+  onClickedSoundName: OnClicked
 --- !u!43 &1448039378
 Mesh:
   m_ObjectHideFlags: 0
