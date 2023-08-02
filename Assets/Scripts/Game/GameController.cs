@@ -4,12 +4,23 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    public int kills, killsCounter;
+    public int kills;
     public GameObject enemySpawners, levelOne;
     public TextMeshProUGUI wonText, killsText;
     public BombScript bs;
     public EnemySpawners es;
 
+    private int _killsCounter; // almacenamiento de killsCounter
+
+    public int killsCounter // la misma variable que estaba creada arriba la cambie para ponerle el get y set
+    {
+        get { return _killsCounter; }
+        set
+        {
+            _killsCounter = value;
+            killsText.text = killsCounter.ToString(); // Cambie el texto del cambas del Update aca para que lo actualice cuando se cambie killsCounter
+        }
+    }
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -18,11 +29,11 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         wonText.gameObject.SetActive(false);
+        killsCounter = 0; // Lo restablece de 0 siempre que arranque la escena 
     }
 
     private void Update()
     {
-        killsText.text = killsCounter.ToString();
         if (kills == 1)
             SpawnEnemiesOne();              
     }
