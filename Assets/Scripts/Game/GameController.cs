@@ -12,13 +12,13 @@ public class GameController : MonoBehaviour
 
     private int _killsCounter; // almacenamiento de killsCounter
 
-    public int killsCounter // la misma variable que estaba creada arriba la cambie para ponerle el get y set
+    public int killsCounter
     {
         get { return _killsCounter; }
         set
         {
             _killsCounter = value;
-            killsText.text = killsCounter.ToString(); // Cambie el texto del cambas del Update aca para que lo actualice cuando se cambie killsCounter
+            killsText.text = killsCounter.ToString();
         }
     }
     public void RestartLevel()
@@ -28,8 +28,14 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        Player.OnPlayerDeath += HandlePlayerDeath;
         wonText.gameObject.SetActive(false);
         killsCounter = 0; // Lo restablece de 0 siempre que arranque la escena 
+    }
+    private void HandlePlayerDeath()
+    {
+        RestartLevel();
+        Debug.Log("El jugador ha muerto.");
     }
 
     private void Update()

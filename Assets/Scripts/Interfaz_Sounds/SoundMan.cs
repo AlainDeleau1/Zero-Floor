@@ -24,15 +24,15 @@ public class SoundMan : MonoBehaviour
 
     private void LoadSounds()
     {
-        AudioClip onClickedSound = Resources.Load<AudioClip>("OnClicked"); //Cargamos los sonidos desde resourse
+        AudioClip onClickedSound = Resources.Load<AudioClip>("OnClicked");
         AudioClip onEntrySound = Resources.Load<AudioClip>("OnEntry");
 
-        AudioSource onClickedAudioSource = gameObject.AddComponent<AudioSource>(); //Configura los AudioSource de cada sonido
+        AudioSource onClickedAudioSource = gameObject.AddComponent<AudioSource>(); //Configura los AudioSource
         onClickedAudioSource.clip = onClickedSound;
         AudioSource onEntryAudioSource = gameObject.AddComponent<AudioSource>();
         onEntryAudioSource.clip = onEntrySound;
 
-        soundDictionary.Add("OnClicked", onClickedAudioSource); // Los Audios entran al diccionario
+        soundDictionary.Add("OnClicked", onClickedAudioSource);
         soundDictionary.Add("OnEntry", onEntryAudioSource);
     }
 
