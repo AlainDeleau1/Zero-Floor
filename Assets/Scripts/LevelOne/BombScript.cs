@@ -48,7 +48,7 @@ public class BombScript : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("El GameController no está en la escena o no tiene el tag adecuado.");
+                Debug.LogWarning("El GameController no está en la escena");
             }
 
             explosionPlayed = true;

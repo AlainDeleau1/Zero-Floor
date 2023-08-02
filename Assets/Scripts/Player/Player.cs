@@ -20,7 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField] private new Camera camera;
     [SerializeField] private GameController gc;
     [SerializeField] public TextMeshProUGUI healthHUD;
-    
+
+    public delegate void PlayerDeathEventHandler();
+    public static event PlayerDeathEventHandler OnPlayerDeath;
+
     public void TakeDamage(int damage)
     {
         if (damaged == false)
@@ -76,8 +79,10 @@ public class Player : MonoBehaviour
 
         died = true;
 
-        StartCoroutine(Delay(1.5f));
-        gc.RestartLevel();
+        StartCoroutine(Delay(3.5f));
+        
+
+        OnPlayerDeath?.Invoke(); //Invoca el Evento
     }
 
     private IEnumerator Delay(float delay)
