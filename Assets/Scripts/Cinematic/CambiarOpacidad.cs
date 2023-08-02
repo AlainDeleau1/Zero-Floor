@@ -11,6 +11,8 @@ public class CambiarOpacidad : MonoBehaviour
     private float opacidadInicial = 0f;
     private float tiempoTranscurrido = 0f;
 
+    public GameController gameController;
+
     private void Start()
     {
         imagen = GetComponent<Image>();
@@ -38,7 +40,15 @@ public class CambiarOpacidad : MonoBehaviour
 
         if (tiempoTranscurrido >= 25)
         {
-            SceneManager.LoadScene("MenuPrincipal");
+            if (gameController != null)
+            {
+                // Cambiar a la escena "MainMenu" usando el enum
+                gameController.ChangeScene(GameController.SceneNames.MenuPrincipal);
+            }
+            else
+            {
+                Debug.LogWarning("El GameController no está asignado en el Inspector.");
+            }
         }
     }
 }

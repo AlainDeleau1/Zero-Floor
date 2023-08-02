@@ -43,6 +43,21 @@ public class GameController : MonoBehaviour
         enemySpawners.gameObject.SetActive(true);
         es.enemiesPerWave = 0;
         kills = 0;
+        print("entro");
+    }
+
+    public enum SceneNames
+    {
+        Cinematica,
+        MenuPrincipal,
+        Level0,
+        Level1,
+        FinalScene
+    }
+
+    public void ChangeScene(SceneNames sceneName)
+    {
+        SceneManager.LoadScene(sceneName.ToString());
     }
 }
 
