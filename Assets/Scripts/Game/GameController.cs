@@ -33,5 +33,18 @@ public class GameController : MonoBehaviour
         es.enemiesPerWave = 0;
         kills = 0;
     }
+
+    public enum SceneNames
+    {
+        Cinematica,
+        MenuPrincipal,
+        Level0,
+        Level1
+    }
+
+    public void ChangeScene(SceneNames sceneName)
+    {
+        SceneManager.LoadScene(sceneName.ToString());
+    }
 }
 

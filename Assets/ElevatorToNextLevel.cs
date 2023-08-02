@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class ElevatorToNextLevel : MonoBehaviour
 {
+    public GameController gameController;
+
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(DelayScene());
-        SceneManager.LoadScene("Level 1");
+        if (gameController != null)
+        {
+            gameController.ChangeScene(GameController.SceneNames.Level1);
+        }
+        else
+        {
+            Debug.LogWarning("El GameController no está en la escena o no tiene el tag adecuado.");
+        }
     }
 
     IEnumerator DelayScene()
