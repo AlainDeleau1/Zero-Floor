@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class BombScript : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class BombScript : MonoBehaviour
     public ParticleSystem explosionEffect;
     public GameObject rifle, killsCounter;
 
-    private void Update()
+    private async void Update()
     {
         if (gameController.killsCounter >= 35 && explosionPlayed == false)
         {
@@ -39,6 +40,16 @@ public class BombScript : MonoBehaviour
             Destroy(spawners);
             radioBomb.gameObject.SetActive(false);
             level.gameObject.SetActive(false);
+
+            await Task.Delay(3000);
+            if (gameController != null)
+            {
+                gameController.ChangeScene(GameController.SceneNames.FinalScene);
+            }
+            else
+            {
+                Debug.LogWarning("El GameController no está en la escena o no tiene el tag adecuado.");
+            }
 
             explosionPlayed = true;
         }
