@@ -9,7 +9,7 @@ public class SensorLevel : MonoBehaviour
     public int dropKeyChance;
     public bool triggerOnce = false;
 
-    private async void OnTriggerEnter(Collider other)
+    private async void OnTriggerExit(Collider other)
     {
         if (triggerOnce == true)
             return;

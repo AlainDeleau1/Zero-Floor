@@ -77,6 +77,7 @@ public class ShooterEnemy : Enemy
         GameObject newProjectile = Instantiate(bulletEnemyPrefab, muzzleEnemyGun.position, muzzleEnemyGun.rotation);
         Rigidbody projectileRigidbody = newProjectile.GetComponent<Rigidbody>();
         projectileRigidbody.AddForce(muzzleEnemyGun.forward * bulletEnemyForce);
+        Destroy(newProjectile, 2f);
         StartCoroutine(MuzzleEffect());
     }
 

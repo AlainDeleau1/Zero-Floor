@@ -51,7 +51,7 @@ public class BigEnemy : Enemy
         if (died)
             return;
         StartCoroutine(AttackDelay());
-        //animacion de ataque
+        ani.SetTrigger("AttackAnimation");
     }
 
     public override void TakeDamage(int damage)
@@ -59,7 +59,7 @@ public class BigEnemy : Enemy
         base.TakeDamage(damage);
         if (currentHealth <= 0 && died == false)
         {
-            //animacion de muerte
+            ani.SetTrigger("DeathAnimation");
             sm.EnemyDeadSound();
             Die(2f);
             died = true;

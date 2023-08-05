@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
 
     public int currentHealth;
-    private int startingHealth = 100;
+    private int startingHealth = 300;
     public bool died = false;
     private bool damaged = false;
     private PlayerMovement playerMovement;
