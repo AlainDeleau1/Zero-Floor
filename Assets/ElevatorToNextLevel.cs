@@ -23,5 +23,4 @@ public class ElevatorToNextLevel : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
     }
-
 }

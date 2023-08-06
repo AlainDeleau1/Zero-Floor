@@ -3,18 +3,13 @@ using UnityEngine;
 
 public class EnemySpawners : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab, shooterEnemy, ninjaEnemy, bigEnemy;
     public bool spawned = false;
     public Transform[] enemySpawners;
     public Transform player;
     public int rangeEnemySpawner;
     public int instantiated;
-    public int enemiesPerWave;
-
-    private void Start()
-    {
-        enemiesPerWave = 14;
-    }
+    public int enemiesPerWave = 7;
 
     private void Update()
     {
@@ -25,7 +20,7 @@ public class EnemySpawners : MonoBehaviour
         }
     }
 
-    private void SpawnEnemies()
+    public void SpawnEnemies()
     {
         for (int i = 0; i < enemySpawners.Length; i++)
         {
@@ -42,7 +37,6 @@ public class EnemySpawners : MonoBehaviour
         }
         instantiated = 0;
     }
-
 
     private async void OnEnable()
     {

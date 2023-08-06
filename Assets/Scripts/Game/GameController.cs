@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI wonText, killsText;
     public BombScript bs;
     public EnemySpawners es;
+    public GameObject inventoryManagerObject;
 
     private int _killsCounter; // almacenamiento de killsCounter
 
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
         Player.OnPlayerDeath += HandlePlayerDeath;
         wonText.gameObject.SetActive(false);
         killsCounter = 0; // Lo restablece de 0 siempre que arranque la escena 
+        inventoryManagerObject.GetComponent<InventorySaveLoad>().LoadInventory();
     }
     private void HandlePlayerDeath()
     {
@@ -40,14 +42,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (kills == 1)
-            SpawnEnemiesOne();              
+        if (kills >= 8)
+            SpawnEnemiesOne();
     }
 
     private void SpawnEnemiesOne()
     {
         enemySpawners.gameObject.SetActive(true);
-        es.enemiesPerWave = 0;
         kills = 0;
         print("entro");
     }
@@ -65,5 +66,10 @@ public class GameController : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName.ToString());
     }
-}
 
+    private void OnDestroy()
+    {
+        // Llamamos a la función SaveInventory cuando la escena se destruye o el jugador sale de la escena.
+        inventoryManagerObject.GetComponent<InventorySaveLoad>().SaveInventory();
+    }
+}

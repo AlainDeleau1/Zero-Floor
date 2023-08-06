@@ -3,12 +3,18 @@ using System.Threading.Tasks;
 
 public class EnemySpawners2 : MonoBehaviour
 {
-    public GameObject mediumEnemy, shooterEnemy;
+    public GameObject enemyPrefab, shooterEnemy;
     public bool spawned = false;
     public Transform[] enemySpawners;
     public Transform player;
     public int rangeEnemySpawner;
     public int instantiated;
+    public int enemiesPerWave;
+
+    private void Start()
+    {
+        enemiesPerWave = 14;
+    }
 
     private void Update()
     {
@@ -16,7 +22,7 @@ public class EnemySpawners2 : MonoBehaviour
         {
             SpawnEnemies();
             spawned = true;
-        }  
+        }
     }
 
     private void SpawnEnemies()
@@ -25,30 +31,34 @@ public class EnemySpawners2 : MonoBehaviour
         {
             float distance = Vector3.Distance(enemySpawners[i].position, player.position);
             int chance = Random.Range(0, 100);
-            if (distance > rangeEnemySpawner && instantiated <= 9)
+
+            if (distance > rangeEnemySpawner && instantiated <= enemiesPerWave)
             {
-                if (chance > 20)
+                int randomIndex = Random.Range(0, enemySpawners.Length);
+                Vector3 randomPosition = enemySpawners[randomIndex].position;
+
+                if (chance < 20)
                 {
-                    Instantiate(mediumEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
+                    Instantiate(enemyPrefab, randomPosition, enemySpawners[i].rotation);
                     instantiated++;
-                    print("medium enemy");
                 }
                 else
                 {
-                    Instantiate(shooterEnemy, enemySpawners[i].position, enemySpawners[i].rotation);
+                    Instantiate(shooterEnemy, randomPosition, enemySpawners[i].rotation);
                     instantiated++;
-                    print("shooter enemy");
                 }
-            }        
+               
+            }
         }
         instantiated = 0;
     }
+
 
     private async void OnEnable()
     {
         await Task.Delay(20);
         spawned = false;
         gameObject.SetActive(false);
-
     }
+
 }
