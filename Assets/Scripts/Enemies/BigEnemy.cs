@@ -11,7 +11,7 @@ public class BigEnemy : Enemy
 
     private void Update()
     {
-        if (died)
+        if (dying)
             agent.GetComponent<NavMeshAgent>().enabled = false;
 
         if (Vector3.Distance(transform.position, target.transform.position) < inRange)
@@ -37,6 +37,10 @@ public class BigEnemy : Enemy
 
     public override void ChasePlayer()
     {
+        if (dying)
+        {
+            return;
+        }
         base.ChasePlayer();
         Vector3 targetDirection = target.transform.position - transform.position;
         targetDirection.y = 0f;
@@ -48,7 +52,7 @@ public class BigEnemy : Enemy
 
     private void Attack()
     {
-        if (died)
+        if (dying)
             return;
         StartCoroutine(AttackDelay());
         ani.SetTrigger("AttackAnimation");

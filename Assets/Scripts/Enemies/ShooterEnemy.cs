@@ -18,7 +18,7 @@ public class ShooterEnemy : Enemy
 
     private void Update()
     {
-        if (died)
+        if (dying)
             agent.GetComponent<NavMeshAgent>().enabled = false;
 
         if (Vector3.Distance(transform.position, target.transform.position) < inRange)
@@ -40,6 +40,10 @@ public class ShooterEnemy : Enemy
 
     public override void ChasePlayer()
     {
+        if (dying == true)
+        {
+            return;
+        }
         base.ChasePlayer();
         Vector3 targetDirection = target.transform.position - transform.position;
         targetDirection.y = 0f;
@@ -71,7 +75,7 @@ public class ShooterEnemy : Enemy
 
     private void FireProjectile()
     {
-        if (died)
+        if (dying)
             return;
 
         GameObject newProjectile = Instantiate(bulletEnemyPrefab, muzzleEnemyGun.position, muzzleEnemyGun.rotation);
