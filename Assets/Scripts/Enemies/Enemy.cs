@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [Header("Stats")]
     public int startingHealth = 100;
@@ -14,12 +14,14 @@ public class Enemy : MonoBehaviour
     public float inRange;
     public float attackRange;
     public bool died = false;
+  
     protected bool isPatrolling;
     protected bool isChasing;
     protected Vector3 patrolPoint;
     protected int currentHealth;
     protected bool damageReceived = false;
     protected bool attacking;
+    protected bool dying;
     protected Quaternion angulo;
 
     public float radius = 1f;
@@ -47,6 +49,7 @@ public class Enemy : MonoBehaviour
 
     public void Die(float deathTime)
     {
+        dying = true;
         Destroy(gameObject, deathTime);
         ani.SetTrigger("DeathAnimation");
         gc.killsCounter++;
@@ -61,7 +64,7 @@ public class Enemy : MonoBehaviour
 
     protected void Patrol()
     {
-        if (died)
+        if (dying)
             return;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
@@ -75,7 +78,7 @@ public class Enemy : MonoBehaviour
 
     public void SetRandomPatrolPoint()
     {
-        if (died)
+        if (dying)
             return;
         Vector3 randomPoint = transform.position + Random.insideUnitSphere * patrolRadius;
         NavMeshHit hit;
@@ -88,7 +91,7 @@ public class Enemy : MonoBehaviour
 
     public virtual void ChasePlayer()
     {
-        if (died || attacking)
+        if (dying || attacking)
             return;
         agent.SetDestination(target.transform.position);
         agent.speed = chaseSpeed;
