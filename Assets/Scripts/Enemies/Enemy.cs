@@ -54,6 +54,7 @@ public abstract class Enemy : MonoBehaviour
         ani.SetTrigger("DeathAnimation");
         gc.killsCounter++;
         gc.kills++;
+        Debug.Log("muerte");
         int healChance = Random.Range(0, 100);
         if (healChance <= 10)
         {

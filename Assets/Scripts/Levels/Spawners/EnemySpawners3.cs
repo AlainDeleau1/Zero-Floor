@@ -4,8 +4,7 @@ public class EnemySpawners3 : EnemySpawners
 {
     private void Awake()
     {
-        maxKills = 65;
-        print(maxKills);
+        maxKills = 30;
     }
     private void Update()
     {

@@ -14,7 +14,7 @@ public abstract class EnemySpawners : MonoBehaviour
 
     private async void OnEnable()
     {
-        await Task.Delay(20);
+        await Task.Delay(5);
         spawned = false;
         gameObject.SetActive(false);
     }

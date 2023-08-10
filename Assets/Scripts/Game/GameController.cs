@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     public GameObject enemySpawners, levelOne;
     public TextMeshProUGUI wonText, killsText;
     public BombScript bs;
+    public int waveKills;
     private int _killsCounter;
 
     public int killsCounter
@@ -40,7 +41,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (kills >= 8)
+        if (kills == waveKills)
             SpawnEnemiesOne();
     }
 

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -11,6 +10,8 @@ public class PlayerUI : MonoBehaviour
     public TextMeshProUGUI victoryMessage;
     public GameObject BulletGIF;
     public Image blackImage;
+    public TextMeshProUGUI killsPerLevel;
+    public EnemySpawners es;
 
     [SerializeField] private Image bloodImage;
     [SerializeField] private float alpha = 0;
@@ -24,11 +25,12 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        interactText.enabled = false;
+        interactText.enabled = false;   
     }
 
     private void Update()
     {
+        killsPerLevel.text = es.maxKills.ToString();
         bloodImage.color = new Color(1, 1, 1, alpha);
         if (alpha > 0)
         {
