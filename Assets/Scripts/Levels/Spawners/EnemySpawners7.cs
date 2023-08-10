@@ -6,6 +6,8 @@ public class EnemySpawners7 : EnemySpawners
     {
         maxKills = 125;
         print(maxKills);
+        enemiesPerWave += 3;
+        print(enemiesPerWave);
     }
     private void Update()
     {

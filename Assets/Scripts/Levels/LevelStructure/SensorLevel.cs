@@ -6,7 +6,6 @@ public class SensorLevel : MonoBehaviour
 {
     public GameObject levelOne, killsCounter;
     public TextMeshProUGUI info, bathDoorText;
-    public int dropKeyChance;
     public bool triggerOnce = false;
 
     private async void OnTriggerExit(Collider other)

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource shotgunPickUpSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound, deathEnemySound, moaningEnemySound, AWPShootSound, AWPReloadSound;
+    public AudioSource shotgunPickUpSound, shootSound, reloadSound, outOfAmmoSound, enemyAttackSound, enemyDamagedSound, enemyDeadSound, playerDamageSound, playerDamagedSound, rifleShotSound, riflePickUpSound, explosionSound, rifleReloadSound, deathEnemySound, moaningEnemySound, AWPShootSound, AWPReloadSound, kamikazeDeathSound;
 
     public void ShotgunPickUpSound()
     {
@@ -76,6 +76,10 @@ public class SoundManager : MonoBehaviour
     public void _AWPReloadSound()
     {
         AWPReloadSound.PlayOneShot(AWPReloadSound.clip);
+    }
+    public void KamikazeDeathSound()
+    {
+        kamikazeDeathSound.PlayOneShot(kamikazeDeathSound.clip);
     }
 
     public AudioSource[] GetAudioSources()

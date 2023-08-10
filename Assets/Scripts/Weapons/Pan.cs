@@ -10,17 +10,7 @@ public class Pan : MeleeSystem
         if (attacking)
         {
             PerformAttack();
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Enemy>())
-        {
-            var enemy = other.GetComponent<Enemy>();
-            if (enemy)
-            {
-                enemy.TakeDamage(damage);
-            }
+            anim.SetTrigger("AttackAnim");
         }
     }
 
@@ -31,3 +21,4 @@ public class Pan : MeleeSystem
         pickedUp = false;
     }
 }
+

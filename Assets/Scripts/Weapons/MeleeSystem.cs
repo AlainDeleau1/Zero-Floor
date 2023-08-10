@@ -16,6 +16,7 @@ public abstract class MeleeSystem : MonoBehaviour
     public PlayerUI ui;
     public Animator anim;
     public LayerMask whatIsEnemy;
+    public Collider panCollider;
 
     [Header("Particles")]
     public GameObject hitEffect;
@@ -30,26 +31,15 @@ public abstract class MeleeSystem : MonoBehaviour
         if (p.died == false)
         {
             attacking = Input.GetKeyDown(KeyCode.Mouse0);
-
         }
     }
 
-    protected void PerformAttack()
+    public virtual void PerformAttack()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, range, whatIsEnemy))
-        {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
-                enemy.TakeDamage(damage);
-            }
-        }
-
-        Instantiate(hitEffect, transform.position, Quaternion.LookRotation(hit.normal));
-
         readyToAttack = false;
+        anim.SetTrigger("AttackAnim");
         Invoke("ResetAttack", attackRate);
+        panCollider.enabled = false;
         anim.SetTrigger("AttackAnim");
     }
 
@@ -61,6 +51,12 @@ public abstract class MeleeSystem : MonoBehaviour
     protected void Update()
     {
         MyInput();
+
+        if (attacking == false)
+            panCollider.enabled = false;
+        
+        else
+            panCollider.enabled = true;
     }
 }
 

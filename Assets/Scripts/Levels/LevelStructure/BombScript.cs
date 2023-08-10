@@ -11,7 +11,7 @@ public class BombScript : MonoBehaviour
     [SerializeField] private float duration;
     [SerializeField] private float magnitude;
     public GameObject level, radioBomb, spawners;
-    private EnemySpawners es;
+    public EnemySpawners es;
     bool played = false;
     public bool explosionPlayed = false;
 

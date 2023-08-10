@@ -6,13 +6,13 @@ public class PickAndDrop: MonoBehaviour
     public Camera playerCam;
     public Camera fixCamera;
     public float range;
-    public GameObject currentWeapon;
-    public GameObject weapon;
+    private GameObject currentWeapon;
+    private GameObject weapon;
     public PlayerUI ui;
-    public GunSystem gunSystem;
-    public MeleeSystem meleeSystem;
+    private GunSystem gunSystem;
+    private MeleeSystem meleeSystem;
 
-    public Rigidbody weaponRigidbody;
+    private Rigidbody weaponRigidbody;
 
     public float forceMagnitude;
 
