@@ -12,9 +12,9 @@ public class Pill : MonoBehaviour
             var player = other.GetComponent<Player>();
             if (player)
             {
-                print(player.currentHealth);
-                player.currentHealth = 100;
+                player.TakeHealth();
+                Destroy(pill);
             }
-        }
+        }    
     }
 }
