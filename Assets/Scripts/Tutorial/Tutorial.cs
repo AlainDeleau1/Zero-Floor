@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    public GameObject movement, dash, jump, interact, shoot, drop;
+    public GameObject movement, dash, jump, shoot, drop;
 
     private void Update()
     {
@@ -38,15 +38,6 @@ public class Tutorial : MonoBehaviour
                 return;
             }
             jump.SetActive(false);
-            interact.SetActive(true);
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            if (interact.activeInHierarchy == false)
-            {
-                return;
-            }
-            interact.SetActive(false);
             shoot.SetActive(true);
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
@@ -57,7 +48,6 @@ public class Tutorial : MonoBehaviour
             }
             shoot.SetActive(false);
             drop.SetActive(true);
-
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
@@ -66,6 +56,7 @@ public class Tutorial : MonoBehaviour
                 return;
             }
             drop.SetActive(false);
+            
         }
     }
 }
