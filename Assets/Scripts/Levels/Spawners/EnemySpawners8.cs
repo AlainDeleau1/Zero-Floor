@@ -38,11 +38,6 @@ public class EnemySpawners8 : EnemySpawners
                     Instantiate(ninjaEnemy, randomPosition, enemySpawners[i].rotation);
                     instantiated++;
                 }
-                else if (chance < 15 && chance > 5)
-                {
-                    Instantiate(KamicaseEnemy, randomPosition, enemySpawners[i].rotation);
-                    instantiated++;
-                }
                 else
                 {
                     Instantiate(bigEnemy, randomPosition, enemySpawners[i].rotation);

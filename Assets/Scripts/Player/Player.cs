@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public int maxHealth;
     public int currentHealth;
-    private int startingHealth = 100;
+    public int startingHealth = 100;
     public bool died = false;
     private bool damaged = false;
     private PlayerMovement playerMovement;
