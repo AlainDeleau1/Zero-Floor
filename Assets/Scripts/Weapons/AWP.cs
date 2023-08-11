@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class AWP : GunSystem
 {
-    public GameObject impactSpherePrefab; // Asigna la esfera desde Unity
-
     public override void MyInput()
     {
         base.MyInput();

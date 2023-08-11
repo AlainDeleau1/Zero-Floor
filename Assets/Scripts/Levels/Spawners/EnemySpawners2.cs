@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class EnemySpawners2 : EnemySpawners
 {
-    private void Awake()
-    {
-        maxKills = 50;
-        print(maxKills);
-    }
     private void Update()
     {
         if (spawned == false)
