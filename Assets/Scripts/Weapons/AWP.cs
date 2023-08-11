@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AWP : GunSystem
 {
+    public GameObject impactSpherePrefab; // Asigna la esfera desde Unity
+
     public override void MyInput()
     {
         base.MyInput();
@@ -39,7 +41,6 @@ public class AWP : GunSystem
                 {
                     sm.EnemyDamagedSound();
                     enemy.TakeDamage(damage);
-                    enemy.inRange = enemy.inRange * 10;
                     BloodParticles();
                 }
             }
@@ -80,6 +81,5 @@ public class AWP : GunSystem
             sm._AWPReloadSound();
             reloading = true;
         }
-
     }
 }

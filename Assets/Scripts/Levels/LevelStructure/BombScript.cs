@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class BombScript : MonoBehaviour
 {
+    public Player player;
     public GameController gameController;
     public PlayerUI playerUI;
     public SoundManager soundManager;
@@ -40,6 +41,8 @@ public class BombScript : MonoBehaviour
             Destroy(spawners);
             radioBomb.gameObject.SetActive(false);
             level.gameObject.SetActive(false);
+
+            player.currentHealth = 100;
 
             explosionPlayed = true;
         }

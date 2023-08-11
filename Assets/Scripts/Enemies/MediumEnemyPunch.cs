@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MediumEnemyPunch : MonoBehaviour
 {
-    int damage = 20;
+    public int damage;
     public Enemy enemy;
 
     public void OnTriggerEnter(Collider other)
@@ -12,6 +12,7 @@ public class MediumEnemyPunch : MonoBehaviour
             var player = other.GetComponentInParent<Player>();
             if (player != null && enemy.died == false)
             {
+                print("damage");
                 player.TakeDamage(damage);
             }
         }
