@@ -8,6 +8,7 @@ public class Inventory : MonoBehaviour
     public GameObject rifle;
     public GameObject shotgun;
     public GameObject awp;
+    public GameObject SartenON, SartenOFF, StaplerON, StaplerOFF, RifleON, RifleOFF, ShootgunON, ShootgunOFF, AwpON, AwpOFF;
 
     private GameObject[] weapons; // Array de armas
     private int currentWeaponIndex = -1; // Índice de la arma actual
@@ -24,22 +25,47 @@ public class Inventory : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchWeapon(0); // Pan
+            SartenON.gameObject.SetActive(true);
+            StaplerON.gameObject.SetActive(false);
+            ShootgunON.gameObject.SetActive(false);
+            RifleON.gameObject.SetActive(false);
+            AwpON.gameObject.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             SwitchWeapon(1); // Stapler
+            StaplerON.gameObject.SetActive(true);
+            ShootgunON.gameObject.SetActive(false);
+            RifleON.gameObject.SetActive(false);
+            AwpON.gameObject.SetActive(false);
+            SartenON.gameObject.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             SwitchWeapon(2); // Rifle
+            StaplerON.gameObject.SetActive(false);
+            ShootgunON.gameObject.SetActive(false);
+            RifleON.gameObject.SetActive(true);
+            AwpON.gameObject.SetActive(false);
+            SartenON.gameObject.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             SwitchWeapon(3); // Shotgun
+            StaplerON.gameObject.SetActive(false);
+            ShootgunON.gameObject.SetActive(true);
+            RifleON.gameObject.SetActive(false);
+            AwpON.gameObject.SetActive(false);
+            SartenON.gameObject.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             SwitchWeapon(4); // AWP
+            StaplerON.gameObject.SetActive(false);
+            ShootgunON.gameObject.SetActive(false);
+            RifleON.gameObject.SetActive(false);
+            AwpON.gameObject.SetActive(true);
+            SartenON.gameObject.SetActive(false);
         }
     }
 
@@ -88,5 +114,6 @@ public class Inventory : MonoBehaviour
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localRotation = Quaternion.identity;
     }
+
 }
 
