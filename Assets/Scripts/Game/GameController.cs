@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (kills == waveKills)
+        if (kills >= waveKills)
             SpawnEnemiesOne();
     }
 
