@@ -38,7 +38,6 @@ public class BombScript : MonoBehaviour
             playerUI.victoryMessage.gameObject.SetActive(true);
             gameController.killsCounter = 0;
 
-            Destroy(spawners);
             radioBomb.gameObject.SetActive(false);
             level.gameObject.SetActive(false);
 
