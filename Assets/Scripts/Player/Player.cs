@@ -91,12 +91,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(delay);
         damaged = false;
     }
-
-    public void TakeHealth()
-    {
-        currentHealth = maxHealth;
-        healthHUD.text = currentHealth.ToString();
-    }
 }
 
 
