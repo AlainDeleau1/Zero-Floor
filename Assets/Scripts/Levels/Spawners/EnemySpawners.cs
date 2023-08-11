@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class EnemySpawners : MonoBehaviour
 {
-    public GameObject enemyPrefab, shooterEnemy, ninjaEnemy, bigEnemy;
+    public GameObject enemyPrefab, shooterEnemy, ninjaEnemy, bigEnemy, KamicaseEnemy;
     public bool spawned = false;
     public Transform[] enemySpawners;
     public Transform player;
