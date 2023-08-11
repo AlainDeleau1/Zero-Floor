@@ -12,17 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/OtherScenes/MenuPrincipal.unity
     guid: 36e54c61d740a3643a088fea7f86df1e
   - enabled: 1
-    path: Assets/Scenes/LevelsScenes/Level0felipe.unity
-    guid: ff952eb672236e4499830c1a6d2fbe1b
+    path: Assets/Scenes/LevelsScenes/Level0.unity
+    guid: 814682e28ae8da748a46946adf9cd9cb
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level1.unity
-    guid: 1df00ed774e6b4542963cfaa897a355a
+    guid: 738100fcd1caa7645a8748d4e06f4372
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level2.unity
     guid: a5965c3eaf95f4445a8d2eb744484be8
   - enabled: 1
-    path: Assets/Scenes/LevelsScenes/Level3felipe.unity
-    guid: 040b03f6f63e2644486696c418d9e500
+    path: Assets/Scenes/LevelsScenes/Level3.unity
+    guid: 473b454fb6f44254892772c06356ca9f
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level4.unity
     guid: 7a6327003b5f6014da39603a51009c38
@@ -38,9 +38,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelsScenes/Level8.unity
     guid: 932729c8d50a96f478c9f634f270cf17
-  - enabled: 0
-    path: Assets/Scenes/OtherScenes/TesteosYCosas.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/OtherScenes/FinalScene.unity
     guid: 1b33a8708d485504c95c023e99e70238

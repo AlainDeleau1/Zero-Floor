@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemySpawners5 : EnemySpawners
 {
+    private bool miniboss = false;
+
     private void Update()
     {
         if (spawned == false)
@@ -40,8 +42,12 @@ public class EnemySpawners5 : EnemySpawners
                 }
                 else
                 {
-                    Instantiate(bigEnemy, randomPosition, enemySpawners[i].rotation);
-                    instantiated++;
+                    if (miniboss == false)
+                    {
+                        Instantiate(bigEnemy, randomPosition, enemySpawners[i].rotation);
+                        instantiated++;
+                        miniboss = true;
+                    }   
                 }
             }
         }

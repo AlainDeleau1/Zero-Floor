@@ -4,10 +4,9 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-
-
+    public int maxHealth;
     public int currentHealth;
-    public int startingHealth = 1000;
+    private int startingHealth = 100;
     public bool died = false;
     private bool damaged = false;
     private PlayerMovement playerMovement;
@@ -53,6 +52,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        
         cameraHolder.gameObject.SetActive(true);
         playerCam = GetComponent<PlayerCam>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         playerUI.deathText.gameObject.SetActive(false);
 
         currentHealth = startingHealth;
+        maxHealth = startingHealth;
 
         healthHUD.text = currentHealth.ToString();
     }
@@ -90,7 +91,6 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(delay);
         damaged = false;
     }
-
 }
 
 
