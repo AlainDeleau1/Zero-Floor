@@ -5,10 +5,10 @@ using TMPro;
 public class GameController : MonoBehaviour
 {
     public int kills;
-    public GameObject enemySpawners, levelOne;
+    public GameObject enemySpawners;
     public TextMeshProUGUI wonText, killsText;
-    public BombScript bs;
-    public int waveKills;
+    private EnemySpawners es;
+    private int waveKills;
     private int _killsCounter;
 
     public int killsCounter
@@ -28,6 +28,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
+        es = FindObjectOfType<EnemySpawners>();
         Player.OnPlayerDeath += HandlePlayerDeath;
         wonText.gameObject.SetActive(false);
         killsCounter = 0;

@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//TP2 - Felipe Nunez y Augusto Couture - Delegate
 public class SoundEffectsSlider : MonoBehaviour
 {
     public Slider slider;
 
     private float volume;
     public AudioSource[] sfxAudioSources;
+    private PlayerData pd;
 
     private void Start()
     {
-        volume = 0.1f;
+        pd = FindObjectOfType<PlayerData>();
+        volume = pd.sfxVolume;
         slider.value = volume;
         slider.minValue = 0f;
         slider.maxValue = 1f;
@@ -31,6 +32,7 @@ public class SoundEffectsSlider : MonoBehaviour
         foreach (AudioSource source in sfxAudioSources)
         {
             source.volume = volume;
+            pd.sfxVolume = volume;
         }
     }
 }

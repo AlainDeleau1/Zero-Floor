@@ -14,10 +14,8 @@ public class Player : MonoBehaviour
     private PlayerUI playerUI;
 
     public GameObject cameraHolder;
-    [SerializeField] private SoundManager sm;
-    [SerializeField] private LayerMask Weapon;
-    [SerializeField] private new Camera camera;
-    [SerializeField] private GameController gc;
+    private SoundManager sm;
+    private GameController gc;
     [SerializeField] public TextMeshProUGUI healthHUD;
 
     public delegate void PlayerDeathEventHandler();
@@ -52,38 +50,41 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        
+        currentHealth = startingHealth;
+        maxHealth = startingHealth;
+
         cameraHolder.gameObject.SetActive(true);
         playerCam = GetComponent<PlayerCam>();
         playerMovement = GetComponent<PlayerMovement>();
 
         playerUI = FindObjectOfType<PlayerUI>();
+        gc = FindObjectOfType<GameController>();
+        sm = FindObjectOfType<SoundManager>();
+
         playerUI.deathText.gameObject.SetActive(false);
 
-        currentHealth = startingHealth;
-        maxHealth = startingHealth;
+        healthHUD.text = currentHealth.ToString();
+    }
 
+    private void Update()
+    {
         healthHUD.text = currentHealth.ToString();
     }
 
     private void Die()
     {
-        playerUI.deathText.gameObject.SetActive(true);
-        
-        playerMovement.enabled = false;
-
-        playerCam = FindObjectOfType<PlayerCam>();
-        playerCam.enabled = false;
-
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
-
-        died = true;
-
-        StartCoroutine(Delay(3.5f));
-        
-
         OnPlayerDeath?.Invoke(); //Invoca el Evento
+        //playerMovement.enabled = false;
+        //
+        //playerCam = FindObjectOfType<PlayerCam>();
+        //playerCam.enabled = false;
+        //
+        //Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.visible = true;
+        //
+        //died = true;
+        //
+        //StartCoroutine(Delay(3.5f));   
     }
 
     private IEnumerator Delay(float delay)
