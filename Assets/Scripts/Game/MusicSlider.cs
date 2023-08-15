@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-//TP2 - Felipe Nunez y Augusto Couture - Delegate
 public class MusicSlider : MonoBehaviour
 {
     public Slider slider;
 
     private float volume;
     public AudioSource[] musicAudioSources;
+    private PlayerData pd;
 
     private void Start()
     {
-        volume = 0.1f;
+        pd = FindObjectOfType<PlayerData>();
+        volume = pd.musicVolume;
         slider.value = volume;
         slider.minValue = 0f;
         slider.maxValue = 1f;
@@ -23,7 +24,7 @@ public class MusicSlider : MonoBehaviour
     private void OnSliderValueChanged()
     {
         volume = slider.value;
-        SetVolume(volume);
+        SetVolume(volume); 
     }
 
     private void SetVolume(float volume)
@@ -31,6 +32,7 @@ public class MusicSlider : MonoBehaviour
         foreach (AudioSource source in musicAudioSources)
         {
             source.volume = volume;
+            pd.musicVolume = volume;
         }
     }
 }

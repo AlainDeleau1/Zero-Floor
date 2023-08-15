@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CameraSensitivitySlider : MonoBehaviour
+public class CameraSensitivitySlider : PlayerCam
 {
     public Slider sensitivitySlider;
     public GameObject cameraObject;
@@ -10,17 +10,19 @@ public class CameraSensitivitySlider : MonoBehaviour
     private float initialSensitivityX;
     private float initialSensitivityY;
     private PlayerCam playerCam;
+    private PlayerData pd;
 
     private void Start()
     {
         playerCam = cameraObject.GetComponent<PlayerCam>();
+        pd = FindObjectOfType<PlayerData>();
 
-        initialSensitivityX = playerCam.sensX;
-        initialSensitivityY = playerCam.sensY;
+        initialSensitivityX = pd.sensitivity;
+        initialSensitivityY = pd.sensitivity;
 
         sensitivitySlider.minValue = 1f;
         sensitivitySlider.maxValue = 10f;
-        sensitivitySlider.value = (initialSensitivityX + initialSensitivityY) / (2f * sensitivityMultiplier);
+        sensitivitySlider.value = 5f;
 
         sensitivitySlider.onValueChanged.AddListener(OnSensitivitySliderChanged);
     }
@@ -28,16 +30,10 @@ public class CameraSensitivitySlider : MonoBehaviour
     private void OnSensitivitySliderChanged(float value)
     {
         float sensitivity = value * sensitivityMultiplier;
-        playerCam.sensX = sensitivity;
-        playerCam.sensY = sensitivity;
+        sensX = sensitivity;
+        sensY = sensitivity;
 
-        Debug.Log("Sensibilidad actual de la cámara (X e Y): " + sensitivity);
-    }
-
-    private void OnDestroy()
-    {
-        playerCam.sensX = initialSensitivityX;
-        playerCam.sensY = initialSensitivityY;
+        pd.sensitivity = sensitivity;
     }
 }
 

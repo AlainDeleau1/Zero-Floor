@@ -3,16 +3,19 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private CameraShake cs;
-    [SerializeField] private SoundManager sm;
-    [SerializeField] private GameController gc;
-
     public bool paused = false;
+
+    [SerializeField] private GameObject pauseMenu;
+    private CameraShake cs;
+    private SoundManager sm;
+    private GameController gc;
 
     private void Start()
     {
         pauseMenu.SetActive(false);
+        cs = FindObjectOfType<CameraShake>();
+        sm = FindObjectOfType<SoundManager>();
+        gc = FindObjectOfType<GameController>();
     }
 
     private void Update()
@@ -37,7 +40,6 @@ public class PauseMenu : MonoBehaviour
         paused = true;
         Time.timeScale = 0f;
         pauseMenu.SetActive(true);
-       // AudioListener.pause = true;
         cs.enabled = false;
     }
 
@@ -48,7 +50,6 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-       // AudioListener.pause = false;
         cs.enabled = true;
     }
 
