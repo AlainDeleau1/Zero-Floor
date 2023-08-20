@@ -7,8 +7,7 @@ public class GameController : MonoBehaviour
     public int kills;
     public GameObject enemySpawners;
     public TextMeshProUGUI wonText, killsText;
-    private EnemySpawners es;
-    private int waveKills;
+    public int waveKills;
     private int _killsCounter;
 
     public int killsCounter
@@ -28,7 +27,6 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        es = FindObjectOfType<EnemySpawners>();
         Player.OnPlayerDeath += HandlePlayerDeath;
         wonText.gameObject.SetActive(false);
         killsCounter = 0;
